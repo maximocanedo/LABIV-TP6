@@ -14,7 +14,46 @@ import entidad.Persona;
 public class PersonaDaoImpl implements PersonaDao{
 
 	
-	public boolean ejecutarSPInsertUpdate(Persona persona, String SP) {
+	public boolean existePersona(Persona persona) {
+
+		PreparedStatement statement= null;
+		Connection conexion = null;
+		ResultSet resultSet= null;  
+		boolean existe = false;
+		String consulta = "select * from personas where dni = (?)";
+		try 
+		{
+			conexion = Conexion.getConexion().getSQLConexion();
+			
+			statement = conexion.prepareStatement(consulta);
+			statement.setString(1, persona.getDni());
+			
+			resultSet = statement.executeQuery();
+	        existe = resultSet.next();
+		}
+		catch (SQLException e) {
+	        e.printStackTrace();
+	        try {
+	            if (conexion != null) {
+	                conexion.rollback();
+	            }
+	        } catch (SQLException e1) {
+	            e1.printStackTrace();
+	        }
+	    } finally {/// Es importante cerrar la conexion, por mas que haya o no excepcion 
+	        try {
+	            conexion.close();
+	            statement.close();
+	            resultSet.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+		return existe;
+	}
+	
+	
+	private boolean ejecutarSPInsertUpdate(Persona persona, String SP) {
 		
 		Connection conexion = null;
 	    CallableStatement callst = null;
@@ -61,8 +100,8 @@ public class PersonaDaoImpl implements PersonaDao{
 	
 	@Override
 	public boolean modify(Persona persona) {
-		String Insert= "call modificarPersona(?,?,?)";
-		Boolean PersonaCreada= ejecutarSPInsertUpdate(persona, Insert);
+		String Update= "call modificarPersona(?,?,?)";
+		Boolean PersonaCreada= ejecutarSPInsertUpdate(persona, Update);
 		return PersonaCreada;
 	}
 
