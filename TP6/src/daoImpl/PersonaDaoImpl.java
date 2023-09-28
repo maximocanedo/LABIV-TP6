@@ -1,8 +1,11 @@
 package daoImpl;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import dao.PersonaDao;
@@ -10,25 +13,22 @@ import entidad.Persona;
 
 public class PersonaDaoImpl implements PersonaDao{
 
-	@Override
-	public boolean insert(Persona persona) {
+	
+	public boolean ejecutarSPInsertUpdate(Persona persona, String SP) {
 		
 		Connection conexion = null;
-	    PreparedStatement statement = null; 
-	    boolean isInsertExitoso = false;
+	    CallableStatement callst = null;
+	    boolean SPExitoso = false;
 
 	    try {
 	        conexion = Conexion.getConexion().getSQLConexion();
-	        String query = "insert into personas(dni, nombre, apellido) values (?, ?, ?)"; ///los (?,?,?) son placeholders para usar sets
-	        statement = conexion.prepareStatement(query);/// es mas seguro porque preparo la consulta en vez de hacer inyeccion SQL concatenando strings
-	        statement.setString(1, persona.getDni());
-	        statement.setString(2, persona.getNombre());
-	        statement.setString(3, persona.getApellido());
-
-	        if (statement.executeUpdate() > 0) { ///aca ejecuta la consulta y devuelve cant de filas afectadas
-	            conexion.commit();
-	            isInsertExitoso = true;
-	        }
+            callst = conexion.prepareCall(SP);
+            callst.setString(1, persona.getDni());
+            callst.setString(2, persona.getNombre());
+            callst.setString(3, persona.getApellido());
+            callst.execute();
+            SPExitoso= true;
+	          
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	        try {
@@ -38,39 +38,104 @@ public class PersonaDaoImpl implements PersonaDao{
 	        } catch (SQLException e1) {
 	            e1.printStackTrace();
 	        }
-	    } finally {/// Es importante cerrar la conexion, por mas que haya o no excepcion
+	    } finally {/// Es importante cerrar la conexion, por mas que haya o no excepcion 
 	        try {
-	            if (statement != null) {
-	                statement.close();
-	            }
-	            if (conexion != null) {
-	                conexion.close();
-	            }
+	            conexion.close();
+	            callst.close();
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        }
 	    }
 
-	    return isInsertExitoso;
+	    return SPExitoso;
+	    
 	}
 	
+	@Override
+	public boolean insert(Persona persona) {
+		String Insert= "call crearPersona(?,?,?)";
+		Boolean PersonaCreada= ejecutarSPInsertUpdate(persona, Insert);
+		return PersonaCreada;
+		
+	}
+	
+	@Override
+	public boolean modify(Persona persona) {
+		String Insert= "call modificarPersona(?,?,?)";
+		Boolean PersonaCreada= ejecutarSPInsertUpdate(persona, Insert);
+		return PersonaCreada;
+	}
 
 	@Override
 	public boolean delete(Persona persona) {
-		
-		return false;
+		PreparedStatement statement= null;
+		Connection conexion = null;
+		boolean isdeleteExitoso = false;
+		try 
+		{
+			conexion = Conexion.getConexion().getSQLConexion();
+			statement = conexion.prepareStatement("delete from personas where dni=(?)");
+			statement.setString(1, persona.getDni());
+			if(statement.executeUpdate() > 0)
+			{
+				conexion.commit();
+				isdeleteExitoso = true;
+			}
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		finally {/// Es importante cerrar la conexion, por mas que haya o no excepcion 
+	        try {
+					            
+				statement.close();
+				conexion.close();
+	            
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+		return isdeleteExitoso;
 	}
-
-	@Override
-	public boolean modify(Persona persona) {
-		
-		return false;
-	}
-
 	@Override
 	public List<Persona> readAll() {
-		
-		return null;
+		PreparedStatement statement= null;
+		ResultSet resultSet= null; 
+		ArrayList<Persona> personas = new ArrayList<Persona>();
+		Conexion conexion = Conexion.getConexion();
+		try 
+		{
+			statement = conexion.getSQLConexion().prepareStatement("select * from personas");
+			resultSet = statement.executeQuery();
+			while(resultSet.next())
+			{
+				personas.add(getPersona(resultSet));
+			}
+		} 
+		catch (SQLException e)  
+		{
+			e.printStackTrace();
+		}
+		finally {/// Es importante cerrar la conexion, por mas que haya o no excepcion 
+	        try {
+					            
+				statement.close();
+				conexion.cerrarConexion();
+				resultSet.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+		return personas; 
 	}
 	
-}
+	private Persona getPersona(ResultSet resultSet) throws SQLException
+	{
+		String dni = resultSet.getString("dni");
+		String nombre = resultSet.getString("nombre");
+		String apellido = resultSet.getString("apellido");
+		return new Persona(dni, nombre, apellido);
+	}
+	
+} 
