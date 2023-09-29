@@ -1,24 +1,8 @@
 package presentacion.vista;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-
-import javax.swing.DefaultListModel;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
-import entidad.Persona;
-import javax.swing.SpringLayout;
-import java.awt.BorderLayout;
-import javax.swing.BoxLayout;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import com.jgoodies.forms.layout.FormSpecs;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -45,24 +29,9 @@ public class JPagregar extends JPanel {
     public JPagregar() {
 		initLayout();
 		initComponents();
-		initUI();
-		initListeners();
-		
-    	
-        
-        
-    
+		initUI();		
     }
     
-    
-
-	private void initListeners() {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
 	private void initUI() {
 
     	gridBagLayout.columnWidths = new int[]{60, 37, 98, 153, 0, 0};
@@ -122,8 +91,6 @@ public class JPagregar extends JPanel {
 		
 	}
 
-
-
 	private void initComponents() {
 		gridBagLayout = new GridBagLayout();
     	lblNombre = new JLabel("Nombre");
@@ -133,8 +100,6 @@ public class JPagregar extends JPanel {
     	lblApellido = new JLabel("Apellido");
 		
 	}
-
-
 
 	private void initLayout() {
 		gbc_textField_1 = new GridBagConstraints();
@@ -149,13 +114,128 @@ public class JPagregar extends JPanel {
 			
 	}
 
+	public JTextField getTextField() {
+		return textField;
+	}
 
+	public void setTextField(JTextField textField) {
+		this.textField = textField;
+	}
 
-	/**
-	 * 
-	 */
-	
+	public JTextField getTextField_1() {
+		return textField_1;
+	}
 
-	
+	public void setTextField_1(JTextField textField_1) {
+		this.textField_1 = textField_1;
+	}
+
+	public JTextField getTextField_2() {
+		return textField_2;
+	}
+
+	public void setTextField_2(JTextField textField_2) {
+		this.textField_2 = textField_2;
+	}
+
+	public GridBagLayout getGridBagLayout() {
+		return gridBagLayout;
+	}
+
+	public void setGridBagLayout(GridBagLayout gridBagLayout) {
+		this.gridBagLayout = gridBagLayout;
+	}
+
+	public JLabel getLblNombre() {
+		return lblNombre;
+	}
+
+	public void setLblNombre(JLabel lblNombre) {
+		this.lblNombre = lblNombre;
+	}
+
+	public GridBagConstraints getGbc_lblNombre() {
+		return gbc_lblNombre;
+	}
+
+	public void setGbc_lblNombre(GridBagConstraints gbc_lblNombre) {
+		this.gbc_lblNombre = gbc_lblNombre;
+	}
+
+	public GridBagConstraints getGbc_textField() {
+		return gbc_textField;
+	}
+
+	public void setGbc_textField(GridBagConstraints gbc_textField) {
+		this.gbc_textField = gbc_textField;
+	}
+
+	public JLabel getLblApellido() {
+		return lblApellido;
+	}
+
+	public void setLblApellido(JLabel lblApellido) {
+		this.lblApellido = lblApellido;
+	}
+
+	public GridBagConstraints getGbc_lblApellido() {
+		return gbc_lblApellido;
+	}
+
+	public void setGbc_lblApellido(GridBagConstraints gbc_lblApellido) {
+		this.gbc_lblApellido = gbc_lblApellido;
+	}
+
+	public GridBagConstraints getGbc_textField_1() {
+		return gbc_textField_1;
+	}
+
+	public void setGbc_textField_1(GridBagConstraints gbc_textField_1) {
+		this.gbc_textField_1 = gbc_textField_1;
+	}
+
+	public JLabel getLblDni() {
+		return lblDni;
+	}
+
+	public void setLblDni(JLabel lblDni) {
+		this.lblDni = lblDni;
+	}
+
+	public GridBagConstraints getGbc_lblDni() {
+		return gbc_lblDni;
+	}
+
+	public void setGbc_lblDni(GridBagConstraints gbc_lblDni) {
+		this.gbc_lblDni = gbc_lblDni;
+	}
+
+	public GridBagConstraints getGbc_textField_2() {
+		return gbc_textField_2;
+	}
+
+	public void setGbc_textField_2(GridBagConstraints gbc_textField_2) {
+		this.gbc_textField_2 = gbc_textField_2;
+	}
+
+	public JButton getBtnAceptar() {
+		return btnAceptar;
+	}
+
+	public void setBtnAceptar(JButton btnAceptar) {
+		this.btnAceptar = btnAceptar;
+	}
+
+	public GridBagConstraints getGbc_btnAceptar() {
+		return gbc_btnAceptar;
+	}
+
+	public void setGbc_btnAceptar(GridBagConstraints gbc_btnAceptar) {
+		this.gbc_btnAceptar = gbc_btnAceptar;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 
 }

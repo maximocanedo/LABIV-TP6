@@ -1,25 +1,25 @@
-package presentacion.vista;
+package presentacion.controlador;
 
 import java.awt.EventQueue;
 
+import presentacion.vista.Menu;
 
+public class Controlador {
 
-public class Principal{
-
+	private Menu menu;
 	
-
-	public static void main(String[] args) {
+	
+	
+	
+	public void init() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Menu frame = new Menu();
-					frame.setVisible(true);
+					menu.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
 	}
-
-	
 }

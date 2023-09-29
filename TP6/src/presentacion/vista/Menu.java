@@ -9,6 +9,8 @@ import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 import javax.swing.border.EmptyBorder;
 
+import main.Principal;
+
 
 public class Menu extends JFrame{
 	
