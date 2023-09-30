@@ -8,173 +8,52 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import dao.IRecord;
 import dao.PersonaDao;
 import entidad.Persona;
 
-public class PersonaDaoImpl implements PersonaDao{
+public class PersonaDaoImpl implements IRecord<Persona> {
 
-	
-	public boolean existePersona(Persona persona) {
-
-		PreparedStatement statement= null;
-		Connection conexion = null;
-		ResultSet resultSet= null;  
-		boolean existe = false;
-		String consulta = "select * from personas where dni = (?)";
-		try 
-		{
-			conexion = Conexion.getConexion().getSQLConexion();
-			
-			statement = conexion.prepareStatement(consulta);
-			statement.setString(1, persona.getDni());
-			
-			resultSet = statement.executeQuery();
-	        existe = resultSet.next();
-		}
-		catch (SQLException e) {
-	        e.printStackTrace();
-	        try {
-	            if (conexion != null) {
-	                conexion.rollback();
-	            }
-	        } catch (SQLException e1) {
-	            e1.printStackTrace();
-	        }
-	    } finally {/// Es importante cerrar la conexion, por mas que haya o no excepcion 
-	        try {
-	            conexion.close();
-	            statement.close();
-	            resultSet.close();
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        }
-	    }
-		return existe;
-	}
-	
-	
-	private boolean ejecutarSPInsertUpdate(Persona persona, String SP) {
-		
-		Connection conexion = null;
-	    CallableStatement callst = null;
-	    boolean SPExitoso = false;
-
-	    try {
-	        conexion = Conexion.getConexion().getSQLConexion();
-            callst = conexion.prepareCall(SP);
-            callst.setString(1, persona.getDni());
-            callst.setString(2, persona.getNombre());
-            callst.setString(3, persona.getApellido());
-            callst.execute();
-            SPExitoso= true;
-	          
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	        try {
-	            if (conexion != null) {
-	                conexion.rollback();
-	            }
-	        } catch (SQLException e1) {
-	            e1.printStackTrace();
-	        }
-	    } finally {/// Es importante cerrar la conexion, por mas que haya o no excepcion 
-	        try {
-	            conexion.close();
-	            callst.close();
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        }
-	    }
-
-	    return SPExitoso;
-	    
-	}
-	
 	@Override
-	public boolean insert(Persona persona) {
-		String Insert= "call crearPersona(?,?,?)";
-		Boolean PersonaCreada= ejecutarSPInsertUpdate(persona, Insert);
-		return PersonaCreada;
-		
-	}
-	
-	@Override
-	public boolean modify(Persona persona) {
-		String Update= "call modificarPersona(?,?,?)";
-		Boolean PersonaCreada= ejecutarSPInsertUpdate(persona, Update);
-		return PersonaCreada;
+	public boolean insert(Persona data) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	@Override
-	public boolean delete(Persona persona) {
-		PreparedStatement statement= null;
-		Connection conexion = null;
-		boolean isdeleteExitoso = false;
-		try 
-		{
-			conexion = Conexion.getConexion().getSQLConexion();
-			statement = conexion.prepareStatement("delete from personas where dni=(?)");
-			statement.setString(1, persona.getDni());
-			if(statement.executeUpdate() > 0)
-			{
-				conexion.commit();
-				isdeleteExitoso = true;
-			}
-		} 
-		catch (SQLException e) 
-		{
-			e.printStackTrace();
-		}
-		finally {/// Es importante cerrar la conexion, por mas que haya o no excepcion 
-	        try {
-					            
-				statement.close();
-				conexion.close();
-	            
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        }
-	    }
-		return isdeleteExitoso;
+	public boolean delete(Persona data) {
+		// TODO Auto-generated method stub
+		return false;
 	}
+
 	@Override
-	public List<Persona> readAll() {
-		PreparedStatement statement= null;
-		ResultSet resultSet= null; 
-		ArrayList<Persona> personas = new ArrayList<Persona>();
-		Conexion conexion = Conexion.getConexion();
-		try 
-		{
-			statement = conexion.getSQLConexion().prepareStatement("select * from personas");
-			resultSet = statement.executeQuery();
-			while(resultSet.next())
-			{
-				personas.add(getPersona(resultSet));
-			}
-		} 
-		catch (SQLException e)  
-		{
-			e.printStackTrace();
-		}
-		finally {/// Es importante cerrar la conexion, por mas que haya o no excepcion 
-	        try {
-					            
-				statement.close();
-				conexion.cerrarConexion();
-				resultSet.close();
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        }
-	    }
-		return personas; 
+	public boolean modify(Persona data) {
+		// TODO Auto-generated method stub
+		return false;
 	}
-	
-	private Persona getPersona(ResultSet resultSet) throws SQLException
-	{
-		String dni = resultSet.getString("dni");
-		String nombre = resultSet.getString("nombre");
-		String apellido = resultSet.getString("apellido");
-		return new Persona(dni, nombre, apellido);
+
+	@Override
+	public List<Persona> getAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Persona> select(String query) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Persona getById(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean exists(int id) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 } 

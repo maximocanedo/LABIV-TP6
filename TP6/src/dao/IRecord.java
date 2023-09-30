@@ -7,5 +7,7 @@ public interface IRecord<T> {
 	public boolean delete(T data);
 	public boolean modify(T data);
 	public List<T> getAll();
-	public T getById(Object id);
+	public List<T> select(String query);
+	public T getById(int id);
+	public boolean exists(int id);
 }
