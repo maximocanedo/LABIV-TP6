@@ -20,6 +20,7 @@ public class Conn {
 	// Nombres de las bases de datos
 	public static class DB {
 		public static final String bdregistro = "bdregistro";
+		public static final String bdPersonas = "bdPersonas";
 	}
 	public final String host = "jdbc:mysql://localhost:3306/";
 	private final SQLAccount user = SQLAccount.ROOT;
@@ -37,7 +38,7 @@ public class Conn {
 	}
 	
 	public Conn() {
-		
+		this(DB.bdPersonas);
 	} 
 	
 	public Connection openConnection() throws SQLException {
@@ -141,6 +142,23 @@ public class Conn {
 		}
 	}
 	
+	public List<Map<String, Object>> fetch(String query) throws SQLException {
+		try {
+			return fetch(query, new Object[] {});
+		} catch(SQLException e) { throw e; }
+	}
+	
+	public boolean fetch(String query, IAction<List<Map<String, Object>>> success, IAction<SQLException> error) {
+		try {
+			List<Map<String, Object>> o = fetch(query, new Object[] {});
+			success.exec(o);
+			return true;
+		} catch(SQLException x) {
+			error.exec(x);
+			return false;
+		}
+	}
+
 	
 	// Ejecutar transacción (Parámetros Object[])
 	public boolean executeTransaction(String query, Object[] parameters) throws SQLException {
