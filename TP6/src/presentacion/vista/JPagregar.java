@@ -1,12 +1,15 @@
 package presentacion.vista;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class JPagregar extends JPanel {
 	
@@ -243,6 +246,12 @@ public class JPagregar extends JPanel {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public void limpiarCampos() {
+		this.getTxtNombre().setText("");
+		this.getTxtApellido().setText("");
+		this.getTxtDNI().setText("");
 	}
 
 

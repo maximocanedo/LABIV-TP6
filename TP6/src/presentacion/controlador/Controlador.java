@@ -5,10 +5,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import entidad.Persona;
 import negocio.PersonaNegocio;
+import negocioImpl.Validacion;
 import presentacion.vista.JPagregar;
 import presentacion.vista.JPeliminar;
 import presentacion.vista.JPlistar;
@@ -36,54 +39,82 @@ public class Controlador implements ActionListener{
 	public void initListeners() {
 		//Hacemos uso de expresion lambda 
 		//para no usar clases anonimas en los parametros
-		this.menu.getMntmAgregar().addActionListener(a->abrirJPagregar(a));
-		this.menu.getMntmEliminar().addActionListener(a->abrirJPeliminar(a));
-		this.menu.getMntmListar().addActionListener(a->abrirJPlistar(a));
-		this.menu.getMntmModificar().addActionListener(a->abrirJPmodificar(a));
-		//this.menu.getMntmSalir().addActionListener(a->salir(a));
-/*
-		this.jpAgregar;
-		this.jpEliminar;
-		this.jpModificar;*/
+		menuListener();
+		this.jpAgregar.getBtnAceptar().addActionListener(a-> agregarListener(a));
+		//eliminarListener();
+		//modificarListener();
+		//listarListener();
+
 	}
 	
-	public void abrirJPagregar(ActionEvent a) {
+	private void agregarListener(ActionEvent a) {
+		
+		String nombre = this.jpAgregar.getTxtNombre().getText();
+		String apellido = this.jpAgregar.getTxtApellido().getText();
+		String dni = this.jpAgregar.getTxtDNI().getText();
+		
+		Persona persona = new Persona(dni, nombre, apellido);
+		
+		Boolean nombreVacio= Validacion.txtVacio(jpAgregar.getTxtNombre());
+		Boolean apellidoVacio= Validacion.txtVacio(jpAgregar.getTxtApellido());
+		Boolean DNIvacio= Validacion.txtVacio(jpAgregar.getTxtDNI());;
+		if(nombreVacio || apellidoVacio || DNIvacio) JOptionPane.showMessageDialog(null,"Debe ingresar todos los campos","Validando Datos",
+				JOptionPane.ERROR_MESSAGE);
+		if(!Validacion.verificarNumero(dni))  
+			JOptionPane.showMessageDialog(null,"Debe ingresar numeros en DNI","Validando Datos",
+					JOptionPane.ERROR_MESSAGE);
+	
+		
+		boolean personaAgregada = pNeg.insert(persona);
+		String mensaje= "";
+		if(personaAgregada)
+		{
+			mensaje="Persona agregada con exito";
+			
+		}
+		else
+			mensaje="Fallo al agregar persona!";
+		
+		this.jpAgregar.limpiarCampos();
+		JOptionPane.showMessageDialog(null,mensaje,"Validando Datos",
+				JOptionPane.INFORMATION_MESSAGE);
+		
 		
 	}
-	
-	public void abrirJPeliminar(ActionEvent a) {
-		cambiarJP(jpEliminar);
+
+	private void menuListener() {
+		this.menu.getMntmAgregar().addActionListener(e -> cambiarJP(jpAgregar));
+		this.menu.getMntmEliminar().addActionListener(e->cambiarJP(jpEliminar));
+		this.menu.getMntmListar().addActionListener(e->cambiarJP(jpListar));
+		this.menu.getMntmModificar().addActionListener(a->cambiarJP(jpModificar));
+		this.menu.getMntmSalir().addActionListener(a->salir(a));
 	}
 	
-	public void abrirJPlistar(ActionEvent a) {
-		cambiarJP(jpListar);
+	private void salir(ActionEvent a) {
+		// TODO Auto-generated method stub
+		System.exit(0);
 	}
-	
-	public void abrirJPmodificar(ActionEvent a) {
-		cambiarJP(jpModificar);
-	}
-	
-	public void cambiarJP(JPanel jp) {
+
+	private void cambiarJP(JPanel jp) {
 		limpiar();
 		cambiarPanel(jp);
 		mostrar();
 	}
 	
-	public void limpiar() {
+	private void limpiar() {
 		this.menu.getContentPane().removeAll();
 	}
 	
-	public void mostrar() {
+	private void mostrar() {
 		this.menu.getContentPane().repaint();
 		this.menu.getContentPane().revalidate();
 	}
 	
-	public void cambiarPanel(JPanel jp) {
+	private void cambiarPanel(JPanel jp) {
 		this.menu.getContentPane().add(jp);
-		jp.setVisible(true);
 	}
 
-	public void initComponents(Menu mn, PersonaNegocio pNeg) {
+	private void initComponents(Menu mn, PersonaNegocio pNeg) {
 		this.menu= mn;
 		this.setpNeg(pNeg);
 		this.jpAgregar= new JPagregar();
