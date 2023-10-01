@@ -56,7 +56,7 @@ public class Conn {
 	public List<Map<String, Object>> fetch(String query, Object[] parameters) throws SQLException {
 	    Connection cn = null;
 	    ResultSet rs = null;
-	    List<Map<String, Object>> dataList = new ArrayList<>();
+	    List<Map<String, Object>> dataList = new ArrayList<Map<String, Object>>();
 	    int affectedRows = 0;
 	    boolean anyError = false;
 	    Date executedAt;
@@ -74,7 +74,6 @@ public class Conn {
 
 	        ResultSetMetaData metaData = rs.getMetaData();
 	        int columnCount = metaData.getColumnCount();
-
 	        while (rs.next()) {
 	            Map<String, Object> row = new HashMap<>();
 	            for (int i = 1; i <= columnCount; i++) {
@@ -159,9 +158,45 @@ public class Conn {
 		}
 	}
 
-	
+	public TransactionResponse<?> executeTransaction(String query, Object[] parameters) throws SQLException {
+	    Connection cn = null;
+	    TransactionResponse<?> t = TransactionResponse.create();
+	    try {
+	        cn = this.openConnection();
+	        cn.setAutoCommit(false); // Desactivamos el modo de autocommit para empezar la transacción
+	        
+	        PreparedStatement ps = cn.prepareStatement(query);
+	        
+	        if (parameters != null) {
+	            for (int i = 0; i < parameters.length; i++) {
+	                ps.setObject(i + 1, parameters[i]);
+	            }
+	        }
+
+	        int rowsAffected = ps.executeUpdate();
+	        cn.commit();
+	        t.rowsAffected = rowsAffected;
+	         // ÉXITO
+	    } catch (SQLException e) {
+	        if (cn != null) {
+	            cn.rollback(); // En caso de excepción, DESHACER CAMBIOS EN EL DB
+	        }
+	        t.dbError = e;
+	        e.printStackTrace();
+	        throw e;
+	    } finally {
+	        try {
+	            if (cn != null) {
+	                cn.close();
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	    return t;
+	}
 	// Ejecutar transacción (Parámetros Object[])
-	public boolean executeTransaction(String query, Object[] parameters) throws SQLException {
+	public boolean executeTransactionOLD(String query, Object[] parameters) throws SQLException {
 	    Connection cn = null;
 	    try {
 	        cn = this.openConnection();
@@ -195,7 +230,7 @@ public class Conn {
 	    }
 	}
 	// Ejecutar transacción (Parámetros Map)
-	public boolean executeTransaction(String query, Map<String, Object> parameters) throws SQLException {
+	public TransactionResponse<?> executeTransaction(String query, Map<String, Object> parameters) throws SQLException {
 		Object[] params = parameters.values().toArray();
 		Object[] orParams = parameters.values().toArray();
 		int len = params.length;
@@ -205,8 +240,6 @@ public class Conn {
             params[len - 1 - i] = orParams[i];
             i++;
         }
-		
-		System.out.println(query);
 		return executeTransaction(query, params);
 	}
 	

@@ -1,42 +1,51 @@
 package entidad;
 
 public class Persona {
-	private String Dni; //validar para que sea maximo 20
-	private String Nombre; //validar para que sea maximo 45
-	private String Apellido; //validar para que sea maximo 45
+	private String DNI;
+	private String Nombre;
+	private String Apellido;
 	
-	public Persona()
-	{
+	public Persona() {
 		
 	}
 		
 	public Persona(String dni, String nombre, String apellido) {
-		Dni = dni;
+		DNI = dni;
 		Nombre = nombre;
 		Apellido = apellido;
 	}
 	
-	public String getDni() {
-		return Dni;
+	public String getDNI() {
+		return DNI;
 	}
-	public void setDni(String dni) {
-		Dni = dni;
+	public boolean setDNI(String dni) {
+		if(dni.length() <= 20) {
+			DNI = dni;
+			return true;
+		}
+		return false;
 	}
 	public String getNombre() {
 		return Nombre;
 	}
-	public void setNombre(String nombre) {
-		Nombre = nombre;
+	public boolean setNombre(String nombre) {
+		if(nombre.length() <= 45) {
+			Nombre = nombre;
+			return true;
+		} return false;
 	}
 	public String getApellido() {
 		return Apellido;
 	}
-	public void setApellido(String apellido) {
-		Apellido = apellido;
+	public boolean setApellido(String apellido) {
+		if(apellido.length() <= 45) {
+			Apellido = apellido;
+			return true;
+		} return false;
 	}
 	@Override
 	public String toString() {
-		return Nombre + " " + Apellido + " " + Dni;
+		return Nombre + " " + Apellido + " " + DNI;
 	}
 	
 }
