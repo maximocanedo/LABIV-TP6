@@ -17,7 +17,7 @@ public class Conexion
 			String BD= "bdpersonas";
 			String user= "root";
 			String pass= "root";
-			Class.forName("com.mysql.jdbc.Driver"); //carga el controlador JDBC
+			Class.forName("com.mysql.cj.jdbc.Driver").newInstance(); //para que no nos de warning de driver drepecado
 			this.connection = DriverManager.getConnection(ruta+BD,user,pass); //se conecta a la base de datos
 			this.connection.setAutoCommit(false); // desactiva la autoconfirmacion, para que se confirme manualmente
 		}

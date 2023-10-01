@@ -17,7 +17,6 @@ import presentacion.vista.JPeliminar;
 import presentacion.vista.JPlistar;
 import presentacion.vista.JPmodificar;
 import presentacion.vista.Menu;
-import java.awt.Font;
 
 public class Controlador implements ActionListener{
 
@@ -49,9 +48,9 @@ public class Controlador implements ActionListener{
 	
 	private void agregarListener(ActionEvent a) {
 		
-		String nombre = this.jpAgregar.getTxtNombre().getText();
-		String apellido = this.jpAgregar.getTxtApellido().getText();
-		String dni = this.jpAgregar.getTxtDNI().getText();
+		String nombre = this.jpAgregar.getTxtNombre().getText().toString();
+		String apellido = this.jpAgregar.getTxtApellido().getText().toString();
+		String dni = this.jpAgregar.getTxtDNI().getText().toString();
 		
 		Persona persona = new Persona(dni, nombre, apellido);
 		
@@ -60,7 +59,7 @@ public class Controlador implements ActionListener{
 		Boolean DNIvacio= Validacion.txtVacio(jpAgregar.getTxtDNI());;
 		if(nombreVacio || apellidoVacio || DNIvacio) JOptionPane.showMessageDialog(null,"Debe ingresar todos los campos","Validando Datos",
 				JOptionPane.ERROR_MESSAGE);
-		if(!Validacion.verificarNumero(dni))  
+		if(Validacion.verificarNumero(dni))  
 			JOptionPane.showMessageDialog(null,"Debe ingresar numeros en DNI","Validando Datos",
 					JOptionPane.ERROR_MESSAGE);
 	
@@ -68,10 +67,7 @@ public class Controlador implements ActionListener{
 		boolean personaAgregada = pNeg.insert(persona);
 		String mensaje= "";
 		if(personaAgregada)
-		{
 			mensaje="Persona agregada con exito";
-			
-		}
 		else
 			mensaje="Fallo al agregar persona!";
 		

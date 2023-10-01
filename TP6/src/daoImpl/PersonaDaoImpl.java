@@ -37,62 +37,60 @@ public class PersonaDaoImpl implements PersonaDao{
 	            if (conexion != null) {
 	                conexion.rollback();
 	            }
+	            if (statement != null) {
+	        	statement.close();}
+	            if (resultSet != null) {
+	            	resultSet.close();}
 	        } catch (SQLException e1) {
 	            e1.printStackTrace();
 	        }
-	    } finally {/// Es importante cerrar la conexion, por mas que haya o no excepcion 
-	        try {
-	            conexion.close();
-	            statement.close();
-	            resultSet.close();
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        }
-	    }
+	        
+	    } 
+        
 		return existe;
 	}
 	
-	
 	private boolean ejecutarSPInsertUpdate(Persona persona, String SP) {
-		
-		Connection conexion = null;
+	    Connection conexion = null;
 	    CallableStatement callst = null;
 	    boolean SPExitoso = false;
 
 	    try {
 	        conexion = Conexion.getConexion().getSQLConexion();
-            callst = conexion.prepareCall(SP);
-            callst.setString(1, persona.getDni());
-            callst.setString(2, persona.getNombre());
-            callst.setString(3, persona.getApellido());
-            callst.execute();
-            SPExitoso= true;
-	          
+	        callst = conexion.prepareCall(SP);
+	        callst.setString(1, persona.getDni());
+	        callst.setString(2, persona.getNombre());
+	        callst.setString(3, persona.getApellido());
+	        callst.execute();
+	        conexion.commit(); // Confirmar la transacción
+	        SPExitoso = true;
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	        try {
 	            if (conexion != null) {
-	                conexion.rollback();
+	                conexion.rollback(); // Hacer rollback en caso de error
 	            }
 	        } catch (SQLException e1) {
 	            e1.printStackTrace();
 	        }
-	    } finally {/// Es importante cerrar la conexion, por mas que haya o no excepcion 
+	    } finally {
 	        try {
-	            conexion.close();
-	            callst.close();
+	            if (callst != null) {
+	                callst.close();
+	            }
+	            if (conexion != null) {
+	                conexion.close();
+	            }
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        }
 	    }
 
 	    return SPExitoso;
-	    
 	}
-	
 	@Override
 	public boolean insert(Persona persona) {
-		String Insert= "call crearPersona(?,?,?)";
+		String Insert= "{call crearPersona(?, ?, ?)}";
 		Boolean PersonaCreada= ejecutarSPInsertUpdate(persona, Insert);
 		return PersonaCreada;
 		
@@ -100,7 +98,7 @@ public class PersonaDaoImpl implements PersonaDao{
 	
 	@Override
 	public boolean modify(Persona persona) {
-		String Update= "call modificarPersona(?,?,?)";
+		String Update= "{call modificarPersona(?,?,?)}";
 		Boolean PersonaCreada= ejecutarSPInsertUpdate(persona, Update);
 		return PersonaCreada;
 	}
@@ -125,12 +123,14 @@ public class PersonaDaoImpl implements PersonaDao{
 		{
 			e.printStackTrace();
 		}
-		finally {/// Es importante cerrar la conexion, por mas que haya o no excepcion 
+		finally {
 	        try {
-					            
-				statement.close();
-				conexion.close();
-	            
+	            if (statement != null) {
+	            	statement.close();
+	            }
+	            if (conexion != null) {
+	                conexion.close();
+	            }
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        }
@@ -142,9 +142,11 @@ public class PersonaDaoImpl implements PersonaDao{
 		PreparedStatement statement= null;
 		ResultSet resultSet= null; 
 		ArrayList<Persona> personas = new ArrayList<Persona>();
-		Conexion conexion = Conexion.getConexion();
+		Conexion conexion = null;
 		try 
 		{
+			
+			conexion = Conexion.getConexion();
 			statement = conexion.getSQLConexion().prepareStatement("select * from personas");
 			resultSet = statement.executeQuery();
 			while(resultSet.next())
@@ -156,12 +158,17 @@ public class PersonaDaoImpl implements PersonaDao{
 		{
 			e.printStackTrace();
 		}
-		finally {/// Es importante cerrar la conexion, por mas que haya o no excepcion 
+		finally {
 	        try {
-					            
-				statement.close();
-				conexion.cerrarConexion();
-				resultSet.close();
+	            if (resultSet != null) {
+	            	resultSet.close();
+	            }
+	            if (conexion != null) {
+	            	conexion.cerrarConexion();
+	            }
+	            if (statement != null) {
+	            	statement.close();
+	            }
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        }
