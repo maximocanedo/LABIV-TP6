@@ -74,17 +74,13 @@ public class Menu extends JFrame{
 	private void initLayout() {
 		setTitle("TP6 Grupo 3");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 736, 478);
 		contentPane = new JPanel();
 		sl_contentPane = new SpringLayout();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(sl_contentPane);
 		
-	}
-
-	public JPanel getContentPane() {
-		return contentPane;
 	}
 
 	public void setContentPane(JPanel contentPane) {

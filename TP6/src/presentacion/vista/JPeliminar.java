@@ -29,11 +29,11 @@ public class JPeliminar extends JPanel {
 		lblEliminarUsuarios.setBounds(150, 11, 139, 14);
 		add(lblEliminarUsuarios);
 		
-		ltPersonas.setBounds(150, 25, 139, 193);
+		ltPersonas.setBounds(150, 25, 303, 287);
 		add(ltPersonas);
 		
 		btEliminar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btEliminar.setBounds(150, 229, 139, 23);
+		btEliminar.setBounds(237, 323, 139, 23);
 		add(btEliminar);
 		this.setVisible(true);
 	}

@@ -48,28 +48,25 @@ public class Controlador implements ActionListener{
 	}
 	
 	public void abrirJPagregar(ActionEvent a) {
-		limpiar();
-		cambiarPanel(jpAgregar);
-		mostrar();
+		
 	}
 	
 	public void abrirJPeliminar(ActionEvent a) {
-		limpiar();
-		cambiarPanel(jpEliminar);
-		mostrar();
+		cambiarJP(jpEliminar);
 	}
 	
 	public void abrirJPlistar(ActionEvent a) {
-		limpiar();
-		cambiarPanel(jpListar);
-		mostrar();
+		cambiarJP(jpListar);
 	}
 	
 	public void abrirJPmodificar(ActionEvent a) {
-		this.menu.getContentPane().removeAll();
-		this.menu.getContentPane().add(this.jpModificar);
-		this.menu.getContentPane().repaint();
-		this.menu.getContentPane().revalidate();
+		cambiarJP(jpModificar);
+	}
+	
+	public void cambiarJP(JPanel jp) {
+		limpiar();
+		cambiarPanel(jp);
+		mostrar();
 	}
 	
 	public void limpiar() {
