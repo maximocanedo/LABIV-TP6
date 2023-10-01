@@ -18,6 +18,7 @@ public class JPeliminar extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	public JPeliminar() {
+		super();
 		initLayout();
 		initComponents();
 		initUI();
@@ -34,7 +35,7 @@ public class JPeliminar extends JPanel {
 		btEliminar.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btEliminar.setBounds(150, 229, 139, 23);
 		add(btEliminar);
-		
+		this.setVisible(true);
 	}
 
 	private void initComponents() {
@@ -47,4 +48,33 @@ public class JPeliminar extends JPanel {
 		setLayout(null);
 		
 	}
+
+	public JLabel getLblEliminarUsuarios() {
+		return lblEliminarUsuarios;
+	}
+
+	public void setLblEliminarUsuarios(JLabel lblEliminarUsuarios) {
+		this.lblEliminarUsuarios = lblEliminarUsuarios;
+	}
+
+	public JList<Persona> getLtPersonas() {
+		return ltPersonas;
+	}
+
+	public void setLtPersonas(JList<Persona> ltPersonas) {
+		this.ltPersonas = ltPersonas;
+	}
+
+	public JButton getBtEliminar() {
+		return btEliminar;
+	}
+
+	public void setBtEliminar(JButton btEliminar) {
+		this.btEliminar = btEliminar;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	
 }

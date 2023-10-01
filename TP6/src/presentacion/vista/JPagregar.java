@@ -6,13 +6,14 @@ import javax.swing.JTextField;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.Font;
 
 public class JPagregar extends JPanel {
 	
 	private static final long serialVersionUID = 1L;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
+	private JTextField txtNombre;
+	private JTextField txtApellido;
+	private JTextField txtDNI;
 	private GridBagLayout gridBagLayout;
 	private JLabel lblNombre;
 	private GridBagConstraints gbc_lblNombre;
@@ -27,19 +28,15 @@ public class JPagregar extends JPanel {
 	private GridBagConstraints gbc_btnAceptar;
 	
     public JPagregar() {
+    	super();
 		initLayout();
 		initComponents();
-		initUI();		
+		initUI();
+		
     }
     
 	private void initUI() {
 
-    	gridBagLayout.columnWidths = new int[]{60, 37, 98, 153, 0, 0};
-    	gridBagLayout.rowHeights = new int[]{56, 20, 31, 14, 31, 14, 0, 0};
-    	gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
-    	gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-    	setLayout(gridBagLayout);
-    	
     	gbc_lblNombre.anchor = GridBagConstraints.WEST;
     	gbc_lblNombre.insets = new Insets(0, 0, 5, 5);
     	gbc_lblNombre.gridx = 1;
@@ -51,8 +48,8 @@ public class JPagregar extends JPanel {
     	gbc_textField.insets = new Insets(0, 0, 5, 5);
     	gbc_textField.gridx = 3;
     	gbc_textField.gridy = 1;
-    	add(textField, gbc_textField);
-    	textField.setColumns(10);
+    	add(txtNombre, gbc_textField);
+    	txtNombre.setColumns(10);
     	
     	gbc_lblApellido.anchor = GridBagConstraints.NORTHWEST;
     	gbc_lblApellido.insets = new Insets(0, 0, 5, 5);
@@ -60,13 +57,13 @@ public class JPagregar extends JPanel {
     	gbc_lblApellido.gridy = 3;
     	add(lblApellido, gbc_lblApellido);
     	
-    	textField_1.setColumns(10);
+    	txtApellido.setColumns(10);
     	
     	gbc_textField_1.insets = new Insets(0, 0, 5, 5);
     	gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
     	gbc_textField_1.gridx = 3;
     	gbc_textField_1.gridy = 3;
-    	add(textField_1, gbc_textField_1);
+    	add(txtApellido, gbc_textField_1);
     	
     	gbc_lblDni.anchor = GridBagConstraints.NORTH;
     	gbc_lblDni.fill = GridBagConstraints.HORIZONTAL;
@@ -75,67 +72,77 @@ public class JPagregar extends JPanel {
     	gbc_lblDni.gridy = 5;
     	add(lblDni, gbc_lblDni);
     	
-    	textField_2.setColumns(10);
+    	txtDNI.setColumns(10);
     	
     	gbc_textField_2.insets = new Insets(0, 0, 5, 5);
     	gbc_textField_2.fill = GridBagConstraints.HORIZONTAL;
     	gbc_textField_2.gridx = 3;
     	gbc_textField_2.gridy = 5;
-    	add(textField_2, gbc_textField_2);
+    	add(txtDNI, gbc_textField_2);
     	
     	gbc_btnAceptar.gridwidth = 2;
     	gbc_btnAceptar.insets = new Insets(0, 0, 0, 5);
     	gbc_btnAceptar.gridx = 1;
     	gbc_btnAceptar.gridy = 6;
     	add(btnAceptar, gbc_btnAceptar);
+    	
+    	this.setVisible(true);
 		
 	}
 
 	private void initComponents() {
-		gridBagLayout = new GridBagLayout();
+		
     	lblNombre = new JLabel("Nombre");
+    	lblNombre.setFont(new Font("Tahoma", Font.PLAIN, 14));
     	gbc_lblNombre = new GridBagConstraints();
-    	textField = new JTextField();
+    	txtNombre = new JTextField();
     	gbc_textField = new GridBagConstraints();
     	lblApellido = new JLabel("Apellido");
-		
-	}
-
-	private void initLayout() {
+    	lblApellido.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		gbc_textField_1 = new GridBagConstraints();
     	gbc_lblApellido = new GridBagConstraints();
-    	textField_1 = new JTextField();
-    	lblDni = new JLabel("Dni");
     	gbc_lblDni = new GridBagConstraints();
-    	textField_2 = new JTextField();
+    	txtDNI = new JTextField();
     	btnAceptar = new JButton("Aceptar");
     	gbc_btnAceptar = new GridBagConstraints();
     	gbc_textField_2 = new GridBagConstraints();
-			
+    	txtApellido = new JTextField();
+    	lblDni = new JLabel("Dni");
+    	lblDni.setFont(new Font("Tahoma", Font.PLAIN, 14));
 	}
 
-	public JTextField getTextField() {
-		return textField;
+	private void initLayout() {
+		gridBagLayout = new GridBagLayout();
+		gridBagLayout.columnWidths = new int[]{60, 37, 98, 153, 0, 0};
+    	gridBagLayout.rowHeights = new int[]{56, 20, 31, 14, 31, 14, 0, 0};
+    	gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
+    	gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+    	setLayout(gridBagLayout);
+    	
 	}
 
-	public void setTextField(JTextField textField) {
-		this.textField = textField;
+	public JTextField getTxtNombre() {
+		return txtNombre;
 	}
 
-	public JTextField getTextField_1() {
-		return textField_1;
+	public void setTxtNombre(JTextField txtNombre) {
+		this.txtNombre = txtNombre;
 	}
 
-	public void setTextField_1(JTextField textField_1) {
-		this.textField_1 = textField_1;
+	public JTextField getTxtApellido() {
+		return txtApellido;
 	}
 
-	public JTextField getTextField_2() {
-		return textField_2;
+	public void setTxtApellido(JTextField txtApellido) {
+		this.txtApellido = txtApellido;
 	}
 
-	public void setTextField_2(JTextField textField_2) {
-		this.textField_2 = textField_2;
+	public JTextField getTxtDNI() {
+		return txtDNI;
+	}
+
+	public void setTxtDNI(JTextField txtDNI) {
+		this.txtDNI = txtDNI;
 	}
 
 	public GridBagLayout getGridBagLayout() {
@@ -237,5 +244,6 @@ public class JPagregar extends JPanel {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
 
 }

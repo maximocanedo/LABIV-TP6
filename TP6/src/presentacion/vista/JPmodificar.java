@@ -23,7 +23,7 @@ public class JPmodificar extends JPanel {
 	private JButton btnModificar;
 	
 	public JPmodificar() {
-		
+		super();
 		initLayout();
 		initComponents();
 		initUI();
@@ -53,6 +53,7 @@ public class JPmodificar extends JPanel {
 		
 		btnModificar.setBounds(482, 247, 89, 29);
 		add(btnModificar);
+		this.setVisible(true);
 	}
 
 	private void initComponents() {
@@ -66,6 +67,58 @@ public class JPmodificar extends JPanel {
 
 	private void initLayout() {
 		setLayout(null);
-		
 	}
+
+	public JTextField getTxtNombre() {
+		return txtNombre;
+	}
+
+	public void setTxtNombre(JTextField txtNombre) {
+		this.txtNombre = txtNombre;
+	}
+
+	public JTextField getTxtApellido() {
+		return txtApellido;
+	}
+
+	public void setTxtApellido(JTextField txtApellido) {
+		this.txtApellido = txtApellido;
+	}
+
+	public JTextField getTxtDNI() {
+		return txtDNI;
+	}
+
+	public void setTxtDNI(JTextField txtDNI) {
+		this.txtDNI = txtDNI;
+	}
+
+	public JList<Persona> getLtPersona() {
+		return ltPersona;
+	}
+
+	public void setLtPersona(JList<Persona> ltPersona) {
+		this.ltPersona = ltPersona;
+	}
+
+	public JLabel getLblSeleccioneLaPersona() {
+		return lblSeleccioneLaPersona;
+	}
+
+	public void setLblSeleccioneLaPersona(JLabel lblSeleccioneLaPersona) {
+		this.lblSeleccioneLaPersona = lblSeleccioneLaPersona;
+	}
+
+	public JButton getBtnModificar() {
+		return btnModificar;
+	}
+
+	public void setBtnModificar(JButton btnModificar) {
+		this.btnModificar = btnModificar;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	
 }
