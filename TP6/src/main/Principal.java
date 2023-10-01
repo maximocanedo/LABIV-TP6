@@ -7,32 +7,19 @@ import java.util.List;
 import daoImpl.PersonaDaoImpl;
 import daoImpl.TransactionResponse;
 import entidad.Persona;
+import negocio.LogicResponse;
+import negocioImpl.PersonaLogicImpl;
 
 public class Principal {
 
 	public static void main(String[] args) {
-		PersonaDaoImpl PDI = new PersonaDaoImpl();
-		// Insert
-		Persona p = new Persona() {{
-			setDNI("30333444");
-			setNombre("Dieg");
-			setApellido("García");
-		}};
-		try {
-			TransactionResponse<?> insertResult = PDI.modify(p);
-			if(insertResult.rowsAffected > 0) {
-				System.out.println("Eliminado con éxito. ");
+		PersonaLogicImpl PLI = new PersonaLogicImpl();
+		LogicResponse<Persona> tlp = PLI.getAll();
+		if(tlp.status && tlp.exception == null) {
+			for(Persona p: tlp.listReturned) {
+				System.out.println(p.toString());
 			}
-			System.out.println("RowsAffected: " + insertResult.rowsAffected);
-		} catch(SQLException e) {
-			e.printStackTrace();
 		}
-		
-		// Select
-		List<Persona> personas = (List<Persona>)PDI.getAll();
-		for(Persona persona : personas) {
-			System.out.println(persona.toString());
-		} //*/
 	}
 
 }

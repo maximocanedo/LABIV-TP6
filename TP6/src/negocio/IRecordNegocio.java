@@ -6,15 +6,13 @@ import java.util.Map;
 
 
 public interface IRecordNegocio<X, Y> {
-	public LogicResponse insert(X data) throws SQLException;
-	public LogicResponse delete(X data) throws SQLException;
-	public LogicResponse modify(X data) throws SQLException;
-	public List<X> getAll();
-	public List<X> select(String query);
-	public List<X> select(String query, Map<String, Object> params);
-	public List<X> select(String query, Object[] params);
-	public X getById(Y id);
-	public boolean exists(Y id);
-	public X convert(Map<String, Object> row);
-	public List<X> convert(List<Map<String, Object>> rows);
+	public LogicResponse<X> insert(X data) throws SQLException;
+	public LogicResponse<X> delete(X data) throws SQLException;
+	public LogicResponse<X> modify(X data) throws SQLException;
+	public LogicResponse<X> getAll();
+	public LogicResponse<X> select(String query);
+	public LogicResponse<X> select(String query, Map<String, Object> params);
+	public LogicResponse<X> select(String query, Object[] params);
+	public LogicResponse<X> getById(Y id);
+	public LogicResponse<X> exists(Y id);
 }

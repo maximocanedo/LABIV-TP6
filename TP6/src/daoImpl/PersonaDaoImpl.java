@@ -64,7 +64,7 @@ public class PersonaDaoImpl implements IRecord<Persona, String> {
 	}
 
 	@Override
-	public List<Persona> getAll() {
+	public List<Persona> getAll() throws SQLException {
 		List<Persona> list = new ArrayList<Persona>();
 		try {
 			Conn c = new Conn(Conn.DB.bdPersonas);
@@ -76,18 +76,17 @@ public class PersonaDaoImpl implements IRecord<Persona, String> {
 				p.setApellido((String)row.get("Apellido"));
 				list.add(p);
 			}
-			return list;
 		} catch(SQLException e) {
 			e.printStackTrace();
-			System.out.println(e.toString());
-			return null;
+			throw e;
 		}
+		return list;
 	}
 
 	
 	
 	@Override
-	public List<Persona> select(String query, Map<String, Object> params) {
+	public List<Persona> select(String query, Map<String, Object> params) throws SQLException {
 		List<Persona> list = new ArrayList<Persona>();
 		try {
 			List<Map<String, Object>> results = new Conn().fetch(query, params);
@@ -98,14 +97,14 @@ public class PersonaDaoImpl implements IRecord<Persona, String> {
 				p.setApellido((String)row.get("Apellido"));
 				list.add(p);
 			}
-			return list;
 		} catch(SQLException e) {
 			e.printStackTrace();
-			return null;
+			throw e;
 		}
+		return list;
 	}
 	@Override
-	public List<Persona> select(String query, Object[] params) {
+	public List<Persona> select(String query, Object[] params) throws SQLException {
 		List<Persona> list = new ArrayList<Persona>();
 		try {
 			List<Map<String, Object>> results = new Conn().fetch(query, params);
@@ -116,17 +115,24 @@ public class PersonaDaoImpl implements IRecord<Persona, String> {
 				p.setApellido((String)row.get("Apellido"));
 				list.add(p);
 			}
-			return list;
 		} catch(SQLException e) {
 			e.printStackTrace();
-			return null;
+			throw e;
 		}
+		return list;
 	}
-	public List<Persona> select(String query) {
-		return select(query, new Object[] {});
+	public List<Persona> select(String query) throws SQLException {
+		List<Persona> list = null;
+		try {
+			list = select(query, new Object[] {});
+		} catch(SQLException e) {
+			throw e;
+		}
+		return list;
 	}
 	@Override
-	public Persona getById(String id) {
+	public Persona getById(String id) throws SQLException {
+		Persona p = null;
 		try {
 			List<Map<String, Object>> results = new Conn().fetch(
 					"SELECT * FROM Personas WHERE Dni = @dni", 
@@ -135,27 +141,30 @@ public class PersonaDaoImpl implements IRecord<Persona, String> {
 					}});
 			if(results != null && results.size() > 0) {
 				Map<String, Object> result = results.get(0);
-				return convert(result);
-			} else return null;
+				p = convert(result);
+			};
 		} catch(SQLException e) {
 			e.printStackTrace();
-			return null;
+			throw e;
 		}
+		return p;
 	}
 
 	@Override
-	public boolean exists(String id) {
+	public boolean exists(String id) throws SQLException {
+		boolean r = false;
 		try {
 			List<Map<String, Object>> results = new Conn().fetch(
 					"SELECT * FROM Personas WHERE Dni = @dni", 
 					new HashMap<String, Object>() {{
 						put("dni", id);
 					}});
-			return (results != null && results.size() > 0);
+			r = (results != null && results.size() > 0);
 		} catch(SQLException e) {
 			e.printStackTrace();
-			return false;
+			throw e;
 		}
+		return r;
 	}
 
 	@Override
