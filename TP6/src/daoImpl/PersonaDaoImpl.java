@@ -73,18 +73,7 @@ public class PersonaDaoImpl implements PersonaDao{
 	        } catch (SQLException e1) {
 	            e1.printStackTrace();
 	        }
-	    } finally {
-	        try {
-	            if (callst != null) {
-	                callst.close();
-	            }
-	            if (conexion != null) {
-	                conexion.close();
-	            }
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        }
-	    }
+	    } 
 
 	    return SPExitoso;
 	}
@@ -123,18 +112,7 @@ public class PersonaDaoImpl implements PersonaDao{
 		{
 			e.printStackTrace();
 		}
-		finally {
-	        try {
-	            if (statement != null) {
-	            	statement.close();
-	            }
-	            if (conexion != null) {
-	                conexion.close();
-	            }
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        }
-	    }
+		
 		return isdeleteExitoso;
 	}
 	@Override
@@ -158,21 +136,7 @@ public class PersonaDaoImpl implements PersonaDao{
 		{
 			e.printStackTrace();
 		}
-		finally {
-	        try {
-	            if (resultSet != null) {
-	            	resultSet.close();
-	            }
-	            if (conexion != null) {
-	            	conexion.cerrarConexion();
-	            }
-	            if (statement != null) {
-	            	statement.close();
-	            }
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        }
-	    }
+		
 		return personas; 
 	}
 	
