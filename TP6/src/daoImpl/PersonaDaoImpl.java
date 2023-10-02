@@ -98,7 +98,7 @@ public class PersonaDaoImpl implements PersonaDao{
 	
 	@Override
 	public boolean modify(Persona persona) {
-		String Update= "{call modificarPersona(?,?,?)}";
+		String Update= "{call modificarPersona(?, ?, ?)}";
 		Boolean PersonaCreada= ejecutarSPInsertUpdate(persona, Update);
 		return PersonaCreada;
 	}

@@ -1,13 +1,12 @@
 package presentacion.controlador;
 
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import entidad.Persona;
 import negocio.PersonaNegocio;
@@ -40,12 +39,71 @@ public class Controlador implements ActionListener{
 		//para no usar clases anonimas en los parametros
 		menuListener();
 		this.jpAgregar.getBtnAceptar().addActionListener(a-> agregarListener(a));
-		//eliminarListener();
-		//modificarListener();
-		//listarListener();
+		this.jpModificar.getBtnModificar().addActionListener(a-> btnModificarListener(a));
+		this.jpModificar.getLtPersona().addListSelectionListener(l-> ltPersonaModificarListener(l));
+		this.jpEliminar.getBtEliminar().addActionListener(e-> btnEliminarListener(e));
 
 	}
 	
+	private void btnEliminarListener(ActionEvent e) {
+		if(this.jpEliminar.getLtPersonas().getSelectedIndex()!=-1) {
+			Persona persona = this.jpEliminar.getLtPersonas().getModel().getElementAt(this.jpEliminar.getLtPersonas().getSelectedIndex());
+
+			boolean personaEliminada = pNeg.delete(persona);
+			String mensaje= "";
+			if(personaEliminada)
+				mensaje="Persona eliminada con exito";
+			else
+				mensaje="Fallo al eliminar persona!";
+			
+			JOptionPane.showMessageDialog(null,mensaje,"Validando Datos",
+					JOptionPane.INFORMATION_MESSAGE);
+			this.personas = (ArrayList<Persona>) pNeg.readAll();
+			this.jpEliminar.llenarJlist(this.personas);
+		}
+	}
+
+	private void ltPersonaModificarListener(ListSelectionEvent l) {
+		// TODO Auto-generated method stub
+		if(this.jpModificar.getLtPersona().getSelectedIndex()!=-1) {
+			Persona personaSeleccionada = this.jpModificar.getLtPersona().getModel().getElementAt(this.jpModificar.getLtPersona().getSelectedIndex());
+
+			this.jpModificar.getTxtNombre().setText(personaSeleccionada.getNombre());
+			this.jpModificar.getTxtApellido().setText(personaSeleccionada.getApellido());
+			this.jpModificar.getTxtDNI().setText(personaSeleccionada.getDni());
+		}
+	}
+
+	private void btnModificarListener(ActionEvent a) {
+		String nombre = this.jpModificar.getTxtNombre().getText().toString();
+		String apellido = this.jpModificar.getTxtApellido().getText().toString();
+		String dni = this.jpModificar.getTxtDNI().getText().toString();
+		
+		Persona persona = new Persona(dni, nombre, apellido);
+		
+		Boolean nombreVacio= Validacion.txtVacio(jpModificar.getTxtNombre());
+		Boolean apellidoVacio= Validacion.txtVacio(jpModificar.getTxtApellido());
+		Boolean DNIvacio= Validacion.txtVacio(jpModificar.getTxtDNI());;
+		if(nombreVacio || apellidoVacio || DNIvacio) JOptionPane.showMessageDialog(null,"Debe ingresar todos los campos","Validando Datos",
+				JOptionPane.ERROR_MESSAGE);
+		if(Validacion.verificarNumero(dni))  
+			JOptionPane.showMessageDialog(null,"Debe ingresar numeros en DNI","Validando Datos",
+					JOptionPane.ERROR_MESSAGE);
+	
+		
+		boolean personaModificada = pNeg.modify(persona);
+		String mensaje= "";
+		if(personaModificada)
+			mensaje="Persona modificada con exito";
+		else
+			mensaje="Fallo al modificar persona!";
+		
+		JOptionPane.showMessageDialog(null,mensaje,"Validando Datos",
+				JOptionPane.INFORMATION_MESSAGE);
+		this.personas = (ArrayList<Persona>) pNeg.readAll();
+		this.jpModificar.llenarJlist(this.personas);
+	}
+
 	private void agregarListener(ActionEvent a) {
 		
 		String nombre = this.jpAgregar.getTxtNombre().getText().toString();
@@ -75,7 +133,6 @@ public class Controlador implements ActionListener{
 		JOptionPane.showMessageDialog(null,mensaje,"Validando Datos",
 				JOptionPane.INFORMATION_MESSAGE);
 		
-		
 	}
 
 	private void menuListener() {
@@ -94,6 +151,19 @@ public class Controlador implements ActionListener{
 	private void cambiarJP(JPanel jp) {
 		limpiar();
 		cambiarPanel(jp);
+		this.personas = (ArrayList<Persona>) pNeg.readAll();
+		if (jp == this.jpListar) {
+			
+			this.jpListar.llenarTabla(this.personas);
+		}
+		if (jp == this.jpEliminar) {
+			
+			this.jpEliminar.llenarJlist(this.personas);
+		}
+		
+		if (jp == this.jpModificar) {
+			this.jpModificar.llenarJlist(this.personas);
+		}
 		mostrar();
 	}
 	

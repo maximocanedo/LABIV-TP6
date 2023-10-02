@@ -2,8 +2,11 @@ package presentacion.vista;
 
 import javax.swing.JPanel;
 import javax.swing.JList;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -11,6 +14,9 @@ import javax.swing.JTextField;
 import entidad.Persona;
 
 import java.awt.Font;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.event.ListSelectionEvent;
 
 public class JPmodificar extends JPanel {
 	
@@ -21,6 +27,8 @@ public class JPmodificar extends JPanel {
 	private JList<Persona> ltPersona;
 	private JLabel lblSeleccioneLaPersona;
 	private JButton btnModificar;
+	private DefaultListModel<Persona> modelPersonas;
+	
 	
 	public JPmodificar() {
 		super();
@@ -53,7 +61,11 @@ public class JPmodificar extends JPanel {
 		
 		btnModificar.setBounds(482, 247, 89, 29);
 		add(btnModificar);
+		
+		
 		this.setVisible(true);
+		
+		
 	}
 
 	private void initComponents() {
@@ -63,12 +75,23 @@ public class JPmodificar extends JPanel {
 		txtApellido = new JTextField();
 		txtDNI = new JTextField();
 		btnModificar = new JButton("Modificar");
+		
 	}
 
+	public void llenarJlist(List<Persona> personas) {
+		modelPersonas = new DefaultListModel<Persona>();
+	    for (Persona persona : personas) {
+	    	modelPersonas.addElement(persona);
+	    }
+	
+	    ltPersona.setModel(modelPersonas);
+	}
+	
 	private void initLayout() {
 		setLayout(null);
 	}
 
+	
 	public JTextField getTxtNombre() {
 		return txtNombre;
 	}
@@ -120,5 +143,15 @@ public class JPmodificar extends JPanel {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	
+
+
+	public DefaultListModel<Persona> getModelPersonas() {
+		return modelPersonas;
+	}
+
+	public void setModelPersonas(DefaultListModel<Persona> modelPersonas) {
+		this.modelPersonas = modelPersonas;
+	}
+
+
 }

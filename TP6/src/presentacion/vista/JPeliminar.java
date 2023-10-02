@@ -6,15 +6,17 @@ import entidad.Persona;
 
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.Font;
+import java.util.List;
 
 public class JPeliminar extends JPanel {
 
 	private JLabel lblEliminarUsuarios;
 	private JList<Persona> ltPersonas;
 	private JButton btEliminar;
-	
+	private DefaultListModel<Persona> modelPersonas;
 	private static final long serialVersionUID = 1L;
 
 	public JPeliminar() {
@@ -43,7 +45,14 @@ public class JPeliminar extends JPanel {
 		ltPersonas = new JList<Persona>();
 		btEliminar = new JButton("Eliminar");
 	}
-
+	public void llenarJlist(List<Persona> personas) {
+		modelPersonas = new DefaultListModel<Persona>();
+	    for (Persona persona : personas) {
+	    	modelPersonas.addElement(persona);
+	    }
+	
+	    ltPersonas.setModel(modelPersonas);
+	}
 	private void initLayout() {
 		setLayout(null);
 		

@@ -33,14 +33,7 @@ public class Menu extends JFrame{
 		super();
 		initLayout();
 		initComponents();
-		initUI();
-		initListeners();
-		
-	}
-
-	private void initListeners() {
-		
-		
+		initUI();		
 	}
 
 	private void initUI() {

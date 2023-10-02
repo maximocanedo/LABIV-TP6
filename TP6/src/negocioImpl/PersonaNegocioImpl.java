@@ -28,7 +28,7 @@ public class PersonaNegocioImpl implements PersonaNegocio{
 	@Override
 	public boolean delete(Persona persona) {
 		boolean estado=false;
-		if(pdao.existePersona(persona) )//También se puede preguntar si existe ese ID 
+		if(pdao.existePersona(persona) )
 		{
 			estado=pdao.delete(persona);
 		}
@@ -43,7 +43,7 @@ public class PersonaNegocioImpl implements PersonaNegocio{
 	@Override
 	public boolean modify(Persona persona) {
 		boolean estado=false;
-		if(pdao.existePersona(persona) )//También se puede preguntar si existe ese ID 
+		if(pdao.existePersona(persona) ) 
 		{
 			estado=pdao.modify(persona);
 		}
