@@ -1,19 +1,14 @@
 package presentacion.vista;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.EventQueue;
-import java.awt.Font;
-import java.awt.Insets;
+import java.awt.Toolkit;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JMenuBar;
 import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import net.miginfocom.swing.MigLayout;
-import java.awt.Toolkit;
+
+import main.Messages;
 
 public class Menu extends JFrame {
 	private static final long serialVersionUID = 3L;
@@ -34,11 +29,11 @@ public class Menu extends JFrame {
 		setBounds(100, 100, 450, 300);
 		
 		menuBar = new JMenuBar();
-		mnPersona = new JMenu("Persona");
-		mntmListar = new JMenuItem("Listar");
-		mntmAgregar = new JMenuItem("Agregar");
-		mntmModificar = new JMenuItem("Modificar");
-		mntmEliminar = new JMenuItem("Eliminar");
+		mnPersona = new JMenu(Messages.getString("personaMenuTitle")); //$NON-NLS-1$
+		mntmListar = new JMenuItem(Messages.getString("listarMenuOption")); //$NON-NLS-1$
+		mntmAgregar = new JMenuItem(Messages.getString("agregarMenuOption")); //$NON-NLS-1$
+		mntmModificar = new JMenuItem(Messages.getString("modificarMenuOption")); //$NON-NLS-1$
+		mntmEliminar = new JMenuItem(Messages.getString("eliminarMenuOption")); //$NON-NLS-1$
 		
 		setJMenuBar(menuBar);
 		menuBar.add(mnPersona);

@@ -8,6 +8,7 @@ import java.awt.Component;
 import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
+import main.Messages;
 
 @SuppressWarnings("serial")
 public class PanelAgregar extends JPanel {
@@ -25,7 +26,7 @@ public class PanelAgregar extends JPanel {
 		Component verticalGlue_1 = Box.createVerticalGlue();
 		add(verticalGlue_1, "cell 1 0");
 		
-		JLabel lblAgregarUnRegistro = new JLabel("Agregar un registro") {{
+		JLabel lblAgregarUnRegistro = new JLabel(Messages.getString("agregarRegistroTitle")) {{ //$NON-NLS-1$
 			setFont(Styles.FONT_TITLE);
 		}};
 		lblAgregarUnRegistro.setHorizontalAlignment(SwingConstants.CENTER);
@@ -37,7 +38,7 @@ public class PanelAgregar extends JPanel {
 		Component horizontalGlue_1 = Box.createHorizontalGlue();
 		add(horizontalGlue_1, "cell 0 3");
 		
-		JLabel lblNombre = new JLabel("Nombre:") {{
+		JLabel lblNombre = new JLabel(Messages.getString("nombreDosPuntos")) {{ //$NON-NLS-1$
 			setFont(Styles.FONT_DEFAULT);
 		}};
 		add(lblNombre, "cell 1 3,alignx trailing");
@@ -51,7 +52,7 @@ public class PanelAgregar extends JPanel {
 		Component horizontalGlue = Box.createHorizontalGlue();
 		add(horizontalGlue, "cell 3 3");
 		
-		JLabel lblApellido = new JLabel("Apellido:") {{
+		JLabel lblApellido = new JLabel(Messages.getString("apellidoDosPuntos")) {{ //$NON-NLS-1$
 			setFont(Styles.FONT_DEFAULT);
 		}};
 		add(lblApellido, "cell 1 4,alignx trailing");
@@ -62,7 +63,7 @@ public class PanelAgregar extends JPanel {
 		add(txtApellido, "cell 2 4,growx");
 		txtApellido.setColumns(10);
 		
-		JLabel lblDni = new JLabel("D.N.I.:") {{
+		JLabel lblDni = new JLabel(Messages.getString("dniDosPuntos")) {{ //$NON-NLS-1$
 			setFont(Styles.FONT_DEFAULT);
 		}};
 		add(lblDni, "cell 1 5,alignx trailing");
@@ -73,7 +74,7 @@ public class PanelAgregar extends JPanel {
 		add(txtDNI, "cell 2 5,growx");
 		txtDNI.setColumns(10);
 		
-		btnAceptar = new JButton("Aceptar") {{
+		btnAceptar = new JButton(Messages.getString("accept")) {{ //$NON-NLS-1$
 			setFont(Styles.FONT_DEFAULT);
 		}};
 		add(btnAceptar, "cell 2 6,alignx right");

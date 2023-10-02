@@ -7,8 +7,10 @@ import java.util.Map;
 import daoImpl.PersonaDaoImpl;
 import daoImpl.TransactionResponse;
 import entidad.Persona;
+import main.Messages;
 import negocio.IRecordNegocio;
 import negocio.LogicResponse;
+
 
 public class PersonaLogicImpl implements IRecordNegocio<Persona, String> {
 	public static PersonaDaoImpl PDI = new PersonaDaoImpl();
@@ -22,10 +24,10 @@ public class PersonaLogicImpl implements IRecordNegocio<Persona, String> {
 		boolean DNIOK = DNI.matches("[0-9]+");
 		boolean DNILOK = (DNI.trim().length() > 1); 
 		boolean alright = nombreOK && apellidoOK && DNILOK && DNIOK;
-		result.message = (!nombreOK ? "El nombre debe tener entre 1 y 45 caracteres. " : 
-			(!apellidoOK ? "El apellido debe contener entre 1 y 45 caracteres. " : 
-				(!DNILOK ? "El DNI no puede estar vacío. " : 
-					(!DNIOK ? "El DNI debe contener únicamente números. " : ""))));
+		result.message = (!nombreOK ? Messages.getString("NameMustContainChar") : 
+			(!apellidoOK ? Messages.getString("SurnameMustContainChar") : 
+				(!DNILOK ? Messages.getString("DNIEmptyError") : 
+					(!DNIOK ? Messages.getString("DNINonNumbersError") : ""))));
 		result.status = alright;
 		if(alright) {
 			result.objectReturned = new Persona() {{
@@ -44,10 +46,10 @@ public class PersonaLogicImpl implements IRecordNegocio<Persona, String> {
 			TransactionResponse<?> trInsert = PDI.insert(data);
 			if(trInsert.rowsAffected > 0) {
 				lr.status = true;
-				lr.message = "El registro se añadió con éxito. ";
+				lr.message = Messages.getString("AddedSuccessfully");
 			} else {
 				lr.status = false;
-				lr.message = "No se pudo añadir el registro. ";
+				lr.message = Messages.getString("ErrorTryingToAddRecord");
 			}
 		} catch(SQLException e) {
 			lr.exception = e;
@@ -63,10 +65,10 @@ public class PersonaLogicImpl implements IRecordNegocio<Persona, String> {
 			TransactionResponse<?> trInsert = PDI.delete(data);
 			if(trInsert.rowsAffected > 0) {
 				lr.status = true;
-				lr.message = "El registro se eliminó con éxito. ";
+				lr.message = Messages.getString("DeletedSuccessfully");
 			} else {
 				lr.status = false;
-				lr.message = "No se pudo eliminar el registro. ";
+				lr.message = Messages.getString("ErrorTryingToDeleteRecord");
 			}
 		} catch(SQLException e) {
 			lr.exception = e;
@@ -82,10 +84,10 @@ public class PersonaLogicImpl implements IRecordNegocio<Persona, String> {
 			TransactionResponse<?> trInsert = PDI.modify(data, dni);
 			if(trInsert.rowsAffected > 0) {
 				lr.status = true;
-				lr.message = "El registro se actualizó con éxito. ";
+				lr.message = Messages.getString("ModifiedSuccessfully");
 			} else {
 				lr.status = false;
-				lr.message = "No se pudo actualizar el registro. ";
+				lr.message = Messages.getString("ErrorTryingToModifyRecord");
 			}
 		} catch(SQLException e) {
 			lr.exception = e;
