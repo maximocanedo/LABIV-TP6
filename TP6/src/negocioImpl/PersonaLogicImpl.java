@@ -13,6 +13,7 @@ import negocio.LogicResponse;
 public class PersonaLogicImpl implements IRecordNegocio<Persona, String> {
 	public static PersonaDaoImpl PDI = new PersonaDaoImpl();
 	
+	// TODO: Validar que el DNI no exista!
 	public static LogicResponse<Persona> create(String nombre, String apellido, String DNI) {
 		LogicResponse<Persona> result = new LogicResponse<Persona>();
 		// Validar nombre:
@@ -26,6 +27,13 @@ public class PersonaLogicImpl implements IRecordNegocio<Persona, String> {
 				(!DNILOK ? "El DNI no puede estar vacío. " : 
 					(!DNIOK ? "El DNI debe contener únicamente números. " : ""))));
 		result.status = alright;
+		if(alright) {
+			result.objectReturned = new Persona() {{
+				setNombre(nombre);
+				setApellido(apellido);
+				setDNI(DNI);
+			}};
+		}
 		return result;
 	}
 	
@@ -68,10 +76,10 @@ public class PersonaLogicImpl implements IRecordNegocio<Persona, String> {
 	}
 
 	@Override
-	public LogicResponse<Persona> modify(Persona data) throws SQLException {
+	public LogicResponse<Persona> modify(Persona data, String dni) throws SQLException {
 		LogicResponse<Persona> lr = new LogicResponse<Persona>();
 		try {
-			TransactionResponse<?> trInsert = PDI.modify(data);
+			TransactionResponse<?> trInsert = PDI.modify(data, dni);
 			if(trInsert.rowsAffected > 0) {
 				lr.status = true;
 				lr.message = "El registro se actualizó con éxito. ";

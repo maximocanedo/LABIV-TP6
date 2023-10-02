@@ -49,12 +49,17 @@ public class PersonaDaoImpl implements IRecord<Persona, String> {
 	}
 
 	@Override
-	public TransactionResponse<?> modify(Persona data) throws SQLException {
+	public TransactionResponse<?> modify(Persona data, String dni) throws SQLException {
 		TransactionResponse<?> t = TransactionResponse.create();
 		try {
 			t = new Conn().executeTransaction(
-					"UPDATE Personas SET Nombre = ?, Apellido = ? WHERE Dni = ?", 
-					new Object[] {data.getNombre(),  data.getApellido(), data.getDNI()});
+					"UPDATE Personas SET Nombre = ?, Apellido = ?, Dni = ? WHERE Dni = ?", 
+					new Object[] {
+						data.getNombre(),  
+						data.getApellido(), 
+						data.getDNI(), 
+						dni
+					});
 		} catch(SQLException e) {
 			e.printStackTrace();
 			t.dbError = e;

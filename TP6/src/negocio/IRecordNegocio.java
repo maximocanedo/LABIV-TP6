@@ -8,7 +8,7 @@ import java.util.Map;
 public interface IRecordNegocio<X, Y> {
 	public LogicResponse<X> insert(X data) throws SQLException;
 	public LogicResponse<X> delete(X data) throws SQLException;
-	public LogicResponse<X> modify(X data) throws SQLException;
+	public LogicResponse<X> modify(X data, Y id) throws SQLException;
 	public LogicResponse<X> getAll();
 	public LogicResponse<X> select(String query);
 	public LogicResponse<X> select(String query, Map<String, Object> params);

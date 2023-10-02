@@ -1,14 +1,37 @@
 package presentacion.vista;
 
 import javax.swing.JPanel;
+
+import entidad.Persona;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 
 @SuppressWarnings("serial")
 public class PanelEliminar extends JPanel {
-
+	private DefaultListModel<Persona> dlmPersona;
+	private JList<Persona> list;
+	private JButton btnEliminar;
+	public DefaultListModel<Persona> getDlmPersona() {
+		return dlmPersona;
+	}
+	public void setDlmPersona(DefaultListModel<Persona> dlmPersona) {
+		this.dlmPersona = dlmPersona;
+	}
+	public JList<Persona> getList() {
+		return list;
+	}
+	public void setList(JList<Persona> list) {
+		this.list = list;
+	}
+	public JButton getBtnEliminar() {
+		return btnEliminar;
+	}
+	public void setBtnEliminar(JButton btnEliminar) {
+		this.btnEliminar = btnEliminar;
+	}
 	/**
 	 * Create the panel.
 	 */
@@ -25,12 +48,12 @@ public class PanelEliminar extends JPanel {
 		}};
 		add(lblSeleccioneEnLa, "cell 1 1,alignx center");
 		
-		JList list = new JList() {{
+		list = new JList<Persona>() {{
 			setFont(Styles.FONT_DEFAULT);
 		}};
 		add(list, "cell 0 2 3 1,grow");
 		
-		JButton btnEliminar = new JButton("Eliminar") {{
+		btnEliminar = new JButton("Eliminar") {{
 			setFont(Styles.FONT_DEFAULT);
 		}};
 		add(btnEliminar, "cell 1 3,alignx center");

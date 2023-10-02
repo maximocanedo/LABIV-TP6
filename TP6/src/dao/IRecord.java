@@ -10,7 +10,7 @@ import daoImpl.TransactionResponse;
 public interface IRecord<T, Y> {
 	public TransactionResponse<?> insert(T data) throws SQLException;
 	public TransactionResponse<?> delete(T data) throws SQLException;
-	public TransactionResponse<?> modify(T data) throws SQLException;
+	public TransactionResponse<?> modify(T data, Y id) throws SQLException;
 	public List<T> getAll() throws SQLException;
 	public List<T> select(String query) throws SQLException;
 	public List<T> select(String query, Map<String, Object> params) throws SQLException;

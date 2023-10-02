@@ -19,6 +19,7 @@ public class Controller implements ActionListener {
 	private PanelListar panelListar; 
 	private PanelAgregarController panelAgregarController;
 	private PanelListarController panelListarController;
+	private PanelModificarController panelModificarController;
 	
 	public void setView(JPanel view) {
 		menu.getContentPane().removeAll();
@@ -51,6 +52,7 @@ public class Controller implements ActionListener {
 		panelDefault = new PanelDefault();
 		panelEliminar = new PanelEliminar();
 		panelModificar = new PanelModificar();
+		panelModificarController = new PanelModificarController(panelModificar);
 		panelListar = new PanelListar();
 		panelListarController = new PanelListarController(panelListar);
 		menu.setVisible(true);
