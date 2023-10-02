@@ -9,6 +9,8 @@ import java.awt.Image;
 import java.awt.Panel;
 import java.net.URL;
 import javax.swing.JLabel;
+
+import java.awt.Dimension;
 import java.awt.Font;
 
 @SuppressWarnings("serial")
@@ -21,10 +23,12 @@ public class PanelDefault extends JPanel {
 	public PanelDefault() {
 		setLayout(new MigLayout("", "[grow][grow][grow]", "[72px][grow][grow][grow][grow][grow][grow][grow][grow][grow]"));
 		
-		PanelLogoUTN panelLogoUTN = new PanelLogoUTN();
-
-		
-		add(panelLogoUTN, "cell 1 0,alignx center,growy");
+		Pic pic = new Pic();
+		Dimension sz = new Dimension(48,48);
+		pic.setSize(100, 100);
+		pic.setMinimumSize(sz);
+		add(pic, "cell 1 0,alignx center,aligny center");
+		repaint();
 		
 		JLabel lblTrabajoPrcticoN = new JLabel("Trabajo Pr\u00E1ctico N.\u00BA 6") {{
 			setFont(Styles.FONT_TITLE);

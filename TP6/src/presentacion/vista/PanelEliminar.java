@@ -1,11 +1,15 @@
 package presentacion.vista;
 
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import entidad.Persona;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JLabel;
 import javax.swing.JList;
+
+import java.util.List;
+
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 
@@ -14,6 +18,12 @@ public class PanelEliminar extends JPanel {
 	private DefaultListModel<Persona> dlmPersona;
 	private JList<Persona> list;
 	private JButton btnEliminar;
+	public void updateList(List<Persona> personas) {
+		dlmPersona.clear();
+		for(Persona p : personas) {
+			dlmPersona.addElement(p);
+		}
+	}
 	public DefaultListModel<Persona> getDlmPersona() {
 		return dlmPersona;
 	}
@@ -47,11 +57,14 @@ public class PanelEliminar extends JPanel {
 			setFont(Styles.FONT_DEFAULT);
 		}};
 		add(lblSeleccioneEnLa, "cell 1 1,alignx center");
-		
+		dlmPersona = new DefaultListModel<Persona>();
+		JScrollPane jsp = new JScrollPane();
 		list = new JList<Persona>() {{
 			setFont(Styles.FONT_DEFAULT);
+			setModel(dlmPersona);
 		}};
-		add(list, "cell 0 2 3 1,grow");
+		jsp.setViewportView(list);
+		add(jsp, "cell 0 2 3 1,grow");
 		
 		btnEliminar = new JButton("Eliminar") {{
 			setFont(Styles.FONT_DEFAULT);

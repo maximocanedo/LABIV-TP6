@@ -20,6 +20,7 @@ public class Controller implements ActionListener {
 	private PanelAgregarController panelAgregarController;
 	private PanelListarController panelListarController;
 	private PanelModificarController panelModificarController;
+	private PanelEliminarController panelEliminarController;
 	
 	public void setView(JPanel view) {
 		menu.getContentPane().removeAll();
@@ -51,6 +52,7 @@ public class Controller implements ActionListener {
 		panelAgregarController = new PanelAgregarController(panelAgregar);
 		panelDefault = new PanelDefault();
 		panelEliminar = new PanelEliminar();
+		panelEliminarController = new PanelEliminarController(panelEliminar);
 		panelModificar = new PanelModificar();
 		panelModificarController = new PanelModificarController(panelModificar);
 		panelListar = new PanelListar();
@@ -69,21 +71,18 @@ public class Controller implements ActionListener {
 	}
 	public void Ev_Abrir_PanelModificar(ActionEvent e) {
 		setView(panelModificar);
+		panelModificarController.updateList();
 	}
 	public void Ev_Abrir_PanelEliminar(ActionEvent e) {
 		setView(panelEliminar);
+		panelEliminarController.updateTable();
 	}
 	public void Ev_Abrir_PanelListar(ActionEvent e) {
 		setView(panelListar);
+		panelListarController.updateTable();
 	}
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		Controller c = new Controller();
-		c.launch();
-
-	}
-
+	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub

@@ -9,17 +9,13 @@ import daoImpl.TransactionResponse;
 import entidad.Persona;
 import negocio.LogicResponse;
 import negocioImpl.PersonaLogicImpl;
+import presentacion.controlador.Controller;
 
 public class Principal {
 
 	public static void main(String[] args) {
-		PersonaLogicImpl PLI = new PersonaLogicImpl();
-		LogicResponse<Persona> tlp = PLI.getAll();
-		if(tlp.status && tlp.exception == null) {
-			for(Persona p: tlp.listReturned) {
-				System.out.println(p.toString());
-			}
-		}
+		Controller c = new Controller();
+		c.launch();
 	}
 
 }

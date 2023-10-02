@@ -23,14 +23,17 @@ public class PanelAgregarController implements ActionListener {
 		String nombre = panel.getTxtNombre().getText();
 		String apellido = panel.getTxtApellido().getText();
 		String DNI = panel.getTxtDNI().getText();
-		Persona fulanito = new Persona();
 		LogicResponse<Persona> validations = PersonaLogicImpl.create(nombre, apellido, DNI);
 		if(validations.status) {
 			PersonaLogicImpl PLI = new PersonaLogicImpl();
 			try {
+				Persona fulanito = validations.objectReturned;
 				LogicResponse<Persona> result = PLI.insert(fulanito);
 				if(result.status) {
 					JOptionPane.showMessageDialog(null, "¡El registro se añadió con éxito!");
+					panel.getTxtNombre().setText("");
+					panel.getTxtApellido().setText("");
+					panel.getTxtDNI().setText("");
 				} else {
 					JOptionPane.showMessageDialog(null, "Error al añadir el registro");
 				}

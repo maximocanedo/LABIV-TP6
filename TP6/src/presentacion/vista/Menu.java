@@ -13,6 +13,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import net.miginfocom.swing.MigLayout;
+import java.awt.Toolkit;
 
 public class Menu extends JFrame {
 	private static final long serialVersionUID = 3L;
@@ -27,6 +28,8 @@ public class Menu extends JFrame {
 	
 	@SuppressWarnings("serial")
 	public Menu() {
+		setTitle("Trabajo Pr\u00E1ctico N.\u00BA 6 (R.I. M\u00E1ximo Canedo)");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Menu.class.getResource("/Images/UTN.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		

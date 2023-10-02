@@ -23,6 +23,7 @@ public class PanelModificarController implements ActionListener {
 	
 	public PanelModificarController(PanelModificar panel) {
 		this.panel = panel;
+		updateControlState(false);
 		this.panel.getBtnModificar().addActionListener(e->btnModificar_Click(e));
 		JList<Persona> list = this.panel.getList();
 		this.panel.getList().addListSelectionListener(new ListSelectionListener() {
@@ -35,7 +36,10 @@ public class PanelModificarController implements ActionListener {
 						panel.getTxtMNombre().setText(p.getNombre());
 						panel.getTxtMApellido().setText(p.getApellido());
 						panel.getTxtMDNI().setText(p.getDNI());
-						selectedDNI = p.getDNI();						
+						selectedDNI = p.getDNI();	
+						updateControlState(true);				
+					} else {
+						updateControlState(false);
 					}
                 }
 			}
@@ -43,6 +47,18 @@ public class PanelModificarController implements ActionListener {
 		updateList();
 	}
 
+	public void updateControlState(boolean b) {
+		panel.getBtnModificar().setEnabled(b);
+		panel.getTxtMNombre().setEnabled(b);
+		panel.getTxtMApellido().setEnabled(b);
+		panel.getTxtMDNI().setEnabled(b);
+		if(!b) {
+			panel.getTxtMNombre().setText("");
+			panel.getTxtMApellido().setText("");
+			panel.getTxtMDNI().setText("");
+		}
+	}
+	
 	public void updateList() {
 		LogicResponse<Persona> res = PLI.getAll();
 		if(res.status) {
