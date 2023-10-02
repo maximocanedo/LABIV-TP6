@@ -12,10 +12,10 @@ import javax.swing.border.EmptyBorder;
 import main.Principal;
 
 
-public class Menu extends JFrame{
+public class JPMenuPrincipal extends JFrame{
 	
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
+	private JPanel panelContenedor;
 	private JMenuBar menuBar;
 	private JMenu mnPersona;
 	private JMenuItem mntmAgregar;
@@ -24,7 +24,7 @@ public class Menu extends JFrame{
 	private JMenuItem mntmListar;
 	private SpringLayout sl_contentPane;
 	
-	public Menu() {
+	public JPMenuPrincipal() {
 		initLayout();
 		initComponents();
 		initUI();
@@ -48,9 +48,11 @@ public class Menu extends JFrame{
 		mnPersona.add(mntmEliminar);
 		mntmListar.setIcon(new ImageIcon(Principal.class.getResource("/Images/Oxygen-Icons.org-Oxygen-Apps-preferences-contact-list.16.png")));
 		mnPersona.add(mntmListar);
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(sl_contentPane);
+		panelContenedor.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(panelContenedor);
+		//panelContenedor.setLayout(sl_contentPane);
+		panelContenedor.setLayout(null);
+		panelContenedor.setVisible(true);
 		
 	}
 
@@ -61,8 +63,8 @@ public class Menu extends JFrame{
 		mntmModificar = new JMenuItem("Modificar");
 		mntmEliminar = new JMenuItem("Eliminar");
 		mntmListar = new JMenuItem("Listar");
-		contentPane = new JPanel();
-		sl_contentPane = new SpringLayout();
+		panelContenedor = new JPanel();
+		//sl_contentPane = new SpringLayout();
 		
 	}
 
@@ -72,4 +74,66 @@ public class Menu extends JFrame{
 		setBounds(100, 100, 450, 300);
 		
 	}
+
+	public JPanel getContentPane() {
+		return panelContenedor;
+	}
+
+	public void setContentPane(JPanel contentPane) {
+		this.panelContenedor = contentPane;
+	}
+
+	public void setMenuBar(JMenuBar menuBar) {
+		this.menuBar = menuBar;
+	}
+
+	public JMenu getMnPersona() {
+		return mnPersona;
+	}
+
+	public void setMnPersona(JMenu mnPersona) {
+		this.mnPersona = mnPersona;
+	}
+
+	public JMenuItem getMntmAgregar() {
+		return mntmAgregar;
+	}
+
+	public void setMntmAgregar(JMenuItem mntmAgregar) {
+		this.mntmAgregar = mntmAgregar;
+	}
+
+	public JMenuItem getMntmModificar() {
+		return mntmModificar;
+	}
+
+	public void setMntmModificar(JMenuItem mntmModificar) {
+		this.mntmModificar = mntmModificar;
+	}
+
+	public JMenuItem getMntmEliminar() {
+		return mntmEliminar;
+	}
+
+	public void setMntmEliminar(JMenuItem mntmEliminar) {
+		this.mntmEliminar = mntmEliminar;
+	}
+
+	public JMenuItem getMntmListar() {
+		return mntmListar;
+	}
+
+	public void setMntmListar(JMenuItem mntmListar) {
+		this.mntmListar = mntmListar;
+	}
+
+	public SpringLayout getSl_contentPane() {
+		return sl_contentPane;
+	}
+
+	public void setSl_contentPane(SpringLayout sl_contentPane) {
+		this.sl_contentPane = sl_contentPane;
+	}
+	
+	
 }

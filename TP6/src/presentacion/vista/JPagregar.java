@@ -3,12 +3,144 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import net.miginfocom.swing.MigLayout;
+/*
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;*/
 
 public class JPagregar extends JPanel {
 	
+	private static final long serialVersionUID = 1L;
+	
+	private JLabel lblNombre;
+	private JLabel lblApellido;
+	private JLabel lblDNI;
+	private JTextField txtApellido;
+	private JTextField txtNombre;
+	private JTextField txtDNI;
+	private JButton btnAceptar;
+
+	
+	public JPagregar() {
+		super();
+		initLayout();
+		initComponents();
+		initUI();
+	}
+	
+	public void show() {
+		this.setVisible(true);
+	}
+	
+	private void initLayout() {
+		setLayout(new MigLayout("", "[88.00][56.00][138.00,grow][41.00][65.00,grow]", "[63.00][][][22.00][][118.00]"));
+		
+	}
+	
+	private void initComponents() {
+		lblNombre = new JLabel("Nombre:");
+		txtNombre = new JTextField();
+		lblApellido= new JLabel("Apellido:");
+		txtApellido = new JTextField();
+		lblDNI = new JLabel("D.N.I:");
+		txtDNI = new JTextField();
+		btnAceptar = new JButton("Aceptar");
+	}
+	private void initUI() {
+				
+		add(lblNombre, "cell 1 1,alignx right,aligny center");
+		
+		
+		add(txtNombre, "cell 2 1 2 1,growx");
+		txtNombre.setColumns(10);
+		
+		
+		add(lblApellido, "cell 1 2,alignx right,aligny center");
+		
+		
+		add(txtApellido, "cell 2 2 2 1,growx");
+		txtApellido.setColumns(10);
+		
+		
+		add(lblDNI, "cell 1 3,alignx right,aligny center");
+		
+		
+		add(txtDNI, "cell 2 3 2 1,growx");
+		txtDNI.setColumns(10);
+		
+		
+		/*btnAceptar.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});*/
+		add(btnAceptar, "cell 2 5,alignx left,aligny top");
+
+	}
+
+	public JLabel getLblNombre() {
+		return lblNombre;
+	}
+
+	public void setLblNombre(JLabel lblNombre) {
+		this.lblNombre = lblNombre;
+	}
+
+	public JLabel getLblApellido() {
+		return lblApellido;
+	}
+
+	public void setLblApellido(JLabel lblApellido) {
+		this.lblApellido = lblApellido;
+	}
+
+	public JLabel getLblDNI() {
+		return lblDNI;
+	}
+
+	public void setLblDNI(JLabel lblDNI) {
+		this.lblDNI = lblDNI;
+	}
+
+	public JTextField getTxtApellido() {
+		return txtApellido;
+	}
+
+	public void setTxtApellido(JTextField txtApellido) {
+		this.txtApellido = txtApellido;
+	}
+
+	public JTextField getTxtNombre() {
+		return txtNombre;
+	}
+
+	public void setTxtNombre(JTextField txtNombre) {
+		this.txtNombre = txtNombre;
+	}
+
+	public JTextField getTxtDNI() {
+		return txtDNI;
+	}
+
+	public void setTxtDNI(JTextField txtDNI) {
+		this.txtDNI = txtDNI;
+	}
+
+	public JButton getBtnAceptar() {
+		return btnAceptar;
+	}
+
+	public void setBtnAceptar(JButton btnAceptar) {
+		this.btnAceptar = btnAceptar;
+	}
+
+	
+	
+/*	
 	private static final long serialVersionUID = 1L;
 	private JTextField textField;
 	private JTextField textField_1;
@@ -237,5 +369,5 @@ public class JPagregar extends JPanel {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-
+*/
 }
