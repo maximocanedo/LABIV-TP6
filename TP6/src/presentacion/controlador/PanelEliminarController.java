@@ -3,6 +3,7 @@ package presentacion.controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.text.MessageFormat;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -14,6 +15,7 @@ import javax.swing.event.ListSelectionListener;
 import entidad.Persona;
 import negocio.LogicResponse;
 import negocioImpl.PersonaLogicImpl;
+import main.Messages;
 import presentacion.vista.PanelEliminar;
 
 public class PanelEliminarController implements ActionListener {
@@ -57,13 +59,19 @@ public class PanelEliminarController implements ActionListener {
 
 	public void btnEliminar_Click(ActionEvent e) {
 		if(this.selected != null) {
-			int res = JOptionPane.showConfirmDialog(null, "¿Está seguro de eliminar el registro de \"" + this.selected.getNombre() + " " + this.selected.getApellido() + "\" (DNI N.º " + this.selected.getDNI() + ")?", "Confirmar baja de registro", JOptionPane.YES_NO_CANCEL_OPTION);
+			String fullName = "\"" + this.selected.getNombre() + " " + this.selected.getApellido() + "\"";
+			String dnis = this.selected.getDNI();
+			MessageFormat patronRUSD = new MessageFormat(Messages.getString("AreYouSureDelete"));
+			Object[] patronRUSDP = {fullName, dnis};
+			String formattedRUSD = patronRUSD.format(patronRUSDP);
+			int res = JOptionPane.showConfirmDialog(null, 
+					formattedRUSD, Messages.getString("AreYouSureDeleteTitle"), JOptionPane.YES_NO_CANCEL_OPTION);
 			if(res == JOptionPane.YES_OPTION) {
 				// Sí, eliminar
 				try {
 					LogicResponse<Persona> result = PLI.delete(this.selected);
 					if(result.status) {
-						JOptionPane.showMessageDialog(null, "El registro se eliminó con éxito. ");
+						JOptionPane.showMessageDialog(null, Messages.getString("DeletedSuccessfully"));
 						updateTable();
 					} else {
 						JOptionPane.showMessageDialog(null, result.message);
@@ -71,7 +79,7 @@ public class PanelEliminarController implements ActionListener {
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
-					JOptionPane.showMessageDialog(null, "Hubo un problema al intentar eliminar el registro. ");
+					JOptionPane.showMessageDialog(null, Messages.getString("ErrorTryingToDeleteRecord"));
 				}
 				
 			} else {

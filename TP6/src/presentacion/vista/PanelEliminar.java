@@ -1,6 +1,7 @@
 package presentacion.vista;
 
 import javax.swing.JPanel;
+import main.Messages;
 import javax.swing.JScrollPane;
 
 import entidad.Persona;
@@ -48,12 +49,12 @@ public class PanelEliminar extends JPanel {
 	public PanelEliminar() {
 		setLayout(new MigLayout("", "[grow][grow][grow]", "[][][grow][]"));
 		
-		JLabel lblEliminarUnRegistro = new JLabel("Eliminar un registro") {{
+		JLabel lblEliminarUnRegistro = new JLabel(Messages.getString("eliminarRegistroTitle")) {{ //$NON-NLS-1$
 			setFont(Styles.FONT_TITLE);
 		}};
 		add(lblEliminarUnRegistro, "cell 1 0,alignx center");
 		
-		JLabel lblSeleccioneEnLa = new JLabel("Seleccione en la lista el elemento a eliminar:") {{
+		JLabel lblSeleccioneEnLa = new JLabel(Messages.getString("seleccioneRegistroSubtitleEliminar")) {{ //$NON-NLS-1$
 			setFont(Styles.FONT_DEFAULT);
 		}};
 		add(lblSeleccioneEnLa, "cell 1 1,alignx center");
@@ -66,7 +67,7 @@ public class PanelEliminar extends JPanel {
 		jsp.setViewportView(list);
 		add(jsp, "cell 0 2 3 1,grow");
 		
-		btnEliminar = new JButton("Eliminar") {{
+		btnEliminar = new JButton(Messages.getString("delete")) {{ //$NON-NLS-1$
 			setFont(Styles.FONT_DEFAULT);
 		}};
 		add(btnEliminar, "cell 1 3,alignx center");

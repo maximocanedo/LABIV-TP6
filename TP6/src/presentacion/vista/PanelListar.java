@@ -1,6 +1,7 @@
 package presentacion.vista;
 
 import java.util.List;
+import main.Messages;
 
 import javax.swing.JPanel;
 import javax.swing.JTable;
@@ -13,7 +14,7 @@ import net.miginfocom.swing.MigLayout;
 @SuppressWarnings("serial")
 public class PanelListar extends JPanel {
 	private JTable table;
-	private String[] columns = { "Nombre", "Número de Documento" };
+	private String[] columns = { Messages.getString("nombrePersona"), Messages.getString("dniColumn") };
 	private DefaultTableModel modelTabla;
 	private JButton btnActualizar;
 
@@ -44,7 +45,7 @@ public class PanelListar extends JPanel {
 		add(spPersonas, "cell 0 0,grow");
 		spPersonas.setViewportView(table);
 		
-		btnActualizar = new JButton("Actualizar");
+		btnActualizar = new JButton(Messages.getString("actualizarBtn")); //$NON-NLS-1$
 		add(btnActualizar, "cell 0 1");
 
 	}

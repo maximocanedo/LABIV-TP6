@@ -1,6 +1,7 @@
 package presentacion.controlador;
 
 import java.awt.event.ActionEvent;
+import main.Messages;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.List;
@@ -66,7 +67,7 @@ public class PanelModificarController implements ActionListener {
 			panel.updateList(list);
 			
 		} else {
-			JOptionPane.showMessageDialog(null, "Hubo un problema al intentar actualizar la lista. ");
+			JOptionPane.showMessageDialog(null, Messages.getString("ErrorTryingToUpdateList"));
 		}
 	}
 	
@@ -83,12 +84,12 @@ public class PanelModificarController implements ActionListener {
 			try {
 				LogicResponse<Persona> result = PLI.modify(p, selectedDNI);
 				if(result.status) {
-					JOptionPane.showMessageDialog(null, "¡El registro se actualizó con éxito!");					
+					JOptionPane.showMessageDialog(null, Messages.getString("ModifiedSuccessfully"));					
 				} else {
-					JOptionPane.showMessageDialog(null, "Hubo un error al intentar actualizar el registro. ");					
+					JOptionPane.showMessageDialog(null, Messages.getString("ErrorTryingToModifyRecord"));					
 				}
 			} catch (SQLException e1) {
-				JOptionPane.showMessageDialog(null, "Hubo un error al intentar actualizar el registro. ");
+				JOptionPane.showMessageDialog(null, Messages.getString("ErrorTryingToModifyRecord"));
 				e1.printStackTrace();
 			}
 		} else {

@@ -6,6 +6,8 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
+import main.Messages;
+
 import entidad.Persona;
 import negocio.LogicResponse;
 import negocioImpl.PersonaLogicImpl;
@@ -30,17 +32,17 @@ public class PanelAgregarController implements ActionListener {
 				Persona fulanito = validations.objectReturned;
 				LogicResponse<Persona> result = PLI.insert(fulanito);
 				if(result.status) {
-					JOptionPane.showMessageDialog(null, "¡El registro se añadió con éxito!");
+					JOptionPane.showMessageDialog(null, Messages.getString("AddedSuccessfully"));
 					panel.getTxtNombre().setText("");
 					panel.getTxtApellido().setText("");
 					panel.getTxtDNI().setText("");
 				} else {
-					JOptionPane.showMessageDialog(null, "Error al añadir el registro");
+					JOptionPane.showMessageDialog(null, Messages.getString("ErrorTryingToAddRecord"));
 				}
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Error al añadir el registro");
+				JOptionPane.showMessageDialog(null, Messages.getString("ErrorTryingToAddRecord"));
 			}
 		} else {
 			JOptionPane.showMessageDialog(null, validations.message);
