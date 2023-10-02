@@ -4,16 +4,17 @@ import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import java.awt.Font;
 import java.awt.Component;
 import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 
+@SuppressWarnings("serial")
 public class PanelAgregar extends JPanel {
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
+	private JTextField txtNombre;
+	private JTextField txtApellido;
+	private JTextField txtDNI;
+	private JButton btnAceptar;
 
 	/**
 	 * Create the panel.
@@ -24,9 +25,10 @@ public class PanelAgregar extends JPanel {
 		Component verticalGlue_1 = Box.createVerticalGlue();
 		add(verticalGlue_1, "cell 1 0");
 		
-		JLabel lblAgregarUnRegistro = new JLabel("Agregar un registro");
+		JLabel lblAgregarUnRegistro = new JLabel("Agregar un registro") {{
+			setFont(Styles.FONT_TITLE);
+		}};
 		lblAgregarUnRegistro.setHorizontalAlignment(SwingConstants.CENTER);
-		lblAgregarUnRegistro.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
 		add(lblAgregarUnRegistro, "cell 1 1 2 1,alignx center");
 		
 		Component verticalGlue = Box.createVerticalGlue();
@@ -35,33 +37,79 @@ public class PanelAgregar extends JPanel {
 		Component horizontalGlue_1 = Box.createHorizontalGlue();
 		add(horizontalGlue_1, "cell 0 3");
 		
-		JLabel lblNombre = new JLabel("Nombre:");
+		JLabel lblNombre = new JLabel("Nombre:") {{
+			setFont(Styles.FONT_DEFAULT);
+		}};
 		add(lblNombre, "cell 1 3,alignx trailing");
 		
-		textField = new JTextField();
-		add(textField, "cell 2 3,growx");
-		textField.setColumns(10);
+		txtNombre = new JTextField() {{
+			setFont(Styles.FONT_DEFAULT);
+		}};
+		add(txtNombre, "cell 2 3,growx");
+		txtNombre.setColumns(10);
 		
 		Component horizontalGlue = Box.createHorizontalGlue();
 		add(horizontalGlue, "cell 3 3");
 		
-		JLabel lblApellido = new JLabel("Apellido:");
+		JLabel lblApellido = new JLabel("Apellido:") {{
+			setFont(Styles.FONT_DEFAULT);
+		}};
 		add(lblApellido, "cell 1 4,alignx trailing");
 		
-		textField_1 = new JTextField();
-		add(textField_1, "cell 2 4,growx");
-		textField_1.setColumns(10);
+		txtApellido = new JTextField() {{
+			setFont(Styles.FONT_DEFAULT);
+		}};
+		add(txtApellido, "cell 2 4,growx");
+		txtApellido.setColumns(10);
 		
-		JLabel lblDni = new JLabel("D.N.I.:");
+		JLabel lblDni = new JLabel("D.N.I.:") {{
+			setFont(Styles.FONT_DEFAULT);
+		}};
 		add(lblDni, "cell 1 5,alignx trailing");
 		
-		textField_2 = new JTextField();
-		add(textField_2, "cell 2 5,growx");
-		textField_2.setColumns(10);
+		txtDNI = new JTextField() {{
+			setFont(Styles.FONT_DEFAULT);
+		}};
+		add(txtDNI, "cell 2 5,growx");
+		txtDNI.setColumns(10);
 		
-		JButton btnAceptar = new JButton("Aceptar");
+		btnAceptar = new JButton("Aceptar") {{
+			setFont(Styles.FONT_DEFAULT);
+		}};
 		add(btnAceptar, "cell 2 6,alignx right");
 		
+	}
+
+	public JTextField getTxtNombre() {
+		return txtNombre;
+	}
+
+	public void setTxtNombre(JTextField txtNombre) {
+		this.txtNombre = txtNombre;
+	}
+
+	public JTextField getTxtApellido() {
+		return txtApellido;
+	}
+
+	public void setTxtApellido(JTextField txtApellido) {
+		this.txtApellido = txtApellido;
+	}
+
+	public JTextField getTxtDNI() {
+		return txtDNI;
+	}
+
+	public void setTxtDNI(JTextField txtDNI) {
+		this.txtDNI = txtDNI;
+	}
+
+	public JButton getBtnAceptar() {
+		return btnAceptar;
+	}
+
+	public void setBtnAceptar(JButton btnAceptar) {
+		this.btnAceptar = btnAceptar;
 	}
 
 }

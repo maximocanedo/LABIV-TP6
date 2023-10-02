@@ -12,6 +12,23 @@ import negocio.LogicResponse;
 
 public class PersonaLogicImpl implements IRecordNegocio<Persona, String> {
 	public static PersonaDaoImpl PDI = new PersonaDaoImpl();
+	
+	public static LogicResponse<Persona> create(String nombre, String apellido, String DNI) {
+		LogicResponse<Persona> result = new LogicResponse<Persona>();
+		// Validar nombre:
+		boolean nombreOK = (nombre.trim().length() <= 45 && nombre.trim().length() > 1);
+		boolean apellidoOK = (apellido.trim().length() <= 45 && apellido.trim().length() > 1);
+		boolean DNIOK = DNI.matches("[0-9]+");
+		boolean DNILOK = (DNI.trim().length() > 1); 
+		boolean alright = nombreOK && apellidoOK && DNILOK && DNIOK;
+		result.message = (!nombreOK ? "El nombre debe tener entre 1 y 45 caracteres. " : 
+			(!apellidoOK ? "El apellido debe contener entre 1 y 45 caracteres. " : 
+				(!DNILOK ? "El DNI no puede estar vacío. " : 
+					(!DNIOK ? "El DNI debe contener únicamente números. " : ""))));
+		result.status = alright;
+		return result;
+	}
+	
 	@Override
 	public LogicResponse<Persona> insert(Persona data) throws SQLException {
 		LogicResponse<Persona> lr = new LogicResponse<Persona>();
