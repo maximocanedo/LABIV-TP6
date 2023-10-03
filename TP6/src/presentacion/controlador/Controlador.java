@@ -9,6 +9,8 @@ import java.awt.event.KeyListener;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import entidad.Persona;
 import negocio.PersonaNegocio;
@@ -42,6 +44,8 @@ public class Controlador implements ActionListener {
 	
 	
 	public Controlador(Menu vista, PersonaNegocio pNeg) {
+		
+		
 		//Guardamos las instancias que recibe el constructor
 		this.principal = vista;
 		this.pNegocio = pNeg;

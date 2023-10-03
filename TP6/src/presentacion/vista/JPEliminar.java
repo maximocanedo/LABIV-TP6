@@ -7,44 +7,53 @@ import entidad.Persona;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JButton;
+
+import java.awt.Color;
 import java.awt.Font;
+import net.miginfocom.swing.MigLayout;
+import javax.swing.border.LineBorder;
 
 public class JPEliminar extends JPanel {
 
 	private JLabel lblEliminarUsuarios;
 	private JList<Persona> ltPersonas;
-	private JButton btEliminar;
 	
 	private static final long serialVersionUID = 1L;
+	private JButton btnEliminar;
+	private JLabel lblSeleccioneElRegistro;
 
 	public JPEliminar() {
+		setBackground(Color.WHITE);
 		initLayout();
 		initComponents();
 		initUI();
 	}
 
 	private void initUI() {
-		lblEliminarUsuarios.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblEliminarUsuarios.setBounds(150, 11, 139, 14);
-		add(lblEliminarUsuarios);
+		setLayout(new MigLayout("", "[16px:16px:16px][grow][16px:16px:16px]", "[14px][][193px][23px]"));
+		add(lblEliminarUsuarios, "cell 1 0,growx,aligny center");
 		
-		ltPersonas.setBounds(150, 25, 139, 193);
-		add(ltPersonas);
+		lblSeleccioneElRegistro = new JLabel("Seleccione el registro que desee eliminar.") {{
+			setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		}};
+		add(lblSeleccioneElRegistro, "cell 1 1");
+		add(ltPersonas, "cell 1 2,grow");
 		
-		btEliminar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btEliminar.setBounds(150, 229, 139, 23);
-		add(btEliminar);
+		btnEliminar = new JButton("Eliminar");
+		add(btnEliminar, "cell 1 3,alignx center,aligny center");
 		
 	}
 
 	private void initComponents() {
-		lblEliminarUsuarios = new JLabel("Eliminar usuarios");
+		lblEliminarUsuarios = new JLabel("Eliminar un registro")  {{
+			setFont(new Font("Segoe UI", Font.PLAIN, 16));
+			setForeground(new Color(0, 51, 153));
+		}};
 		ltPersonas = new JList<Persona>();
-		btEliminar = new JButton("Eliminar");
+		ltPersonas.setBorder(new LineBorder(Color.LIGHT_GRAY));
 	}
 
 	private void initLayout() {
-		setLayout(null);
 		
 	}
 }
