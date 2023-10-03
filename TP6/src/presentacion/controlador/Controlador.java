@@ -58,6 +58,8 @@ public class Controlador implements ActionListener {
 		
 		//Eventos del menu principal
 		this.principal.getMntmAgregar().addActionListener(a->EventoClickMenu_Panel_AgregarPersona(a));
+		this.principal.getMntmModificar().addActionListener(a->EventoClickMenu_Panel_ModificarPersona(a));
+		this.principal.getMntmEliminar().addActionListener(a->EventoClickMenu_Panel_EliminarPersona(a));
 		
 	}
 	
@@ -72,6 +74,12 @@ public class Controlador implements ActionListener {
 	//Evento click al boton del menu "Agregar personas"
 	public void EventoClickMenu_Panel_AgregarPersona(ActionEvent a) {
 		showView(panelAgregar);
+	}
+	public void EventoClickMenu_Panel_ModificarPersona(ActionEvent a) {
+		showView(panelModificar);
+	}
+	public void EventoClickMenu_Panel_EliminarPersona(ActionEvent a) {
+		showView(panelEliminar);
 	}
 	
 	public void inicializar() {
