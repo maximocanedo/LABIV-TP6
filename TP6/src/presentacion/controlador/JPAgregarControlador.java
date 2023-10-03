@@ -10,14 +10,14 @@ import javax.swing.JOptionPane;
 import entidad.Persona;
 import negocio.PersonaNegocio;
 import negocioImpl.PersonaNegocioImpl;
-import presentacion.vista.JPagregar;
+import presentacion.vista.JPAgregar;
 
 public class JPAgregarControlador {
 	
-	private JPagregar panel;
+	private JPAgregar panel;
 	private PersonaNegocioImpl pNegocio;
 	
-	public JPAgregarControlador(JPagregar panel) {
+	public JPAgregarControlador(JPAgregar panel) {
 		this.panel = panel;
 		pNegocio = new PersonaNegocioImpl();
 		applyEvents();

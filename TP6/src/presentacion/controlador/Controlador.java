@@ -13,7 +13,9 @@ import javax.swing.JPanel;
 import entidad.Persona;
 import negocio.PersonaNegocio;
 import net.miginfocom.swing.MigLayout;
-import presentacion.vista.JPagregar;
+import presentacion.vista.JPAgregar;
+import presentacion.vista.JPEliminar;
+import presentacion.vista.JPModificar;
 import presentacion.vista.Menu;
 
 
@@ -21,11 +23,22 @@ public class Controlador implements ActionListener {
 
 	private Menu principal;
 	
-	private JPagregar panelAgregar;
+	// Panel Agregar
+	private JPAgregar panelAgregar;
 	private JPAgregarControlador cpanelAgregar;
 	
-	private PersonaNegocio pNegocio;
+	// Panel Eliminar
+	private JPEliminar panelEliminar;
+	private JPEliminarControlador cpanelEliminar;
 	
+	// Panel Modificar
+	private JPModificar panelModificar;
+	private JPModificarControlador cpanelModificar;
+	
+	// Panel Listar (Pendiente)
+	
+	// Clases de lógica
+	private PersonaNegocio pNegocio;
 	
 	
 	public Controlador(Menu vista, PersonaNegocio pNeg) {
@@ -34,12 +47,17 @@ public class Controlador implements ActionListener {
 		this.pNegocio = pNeg;
 		
 		//Instanciamos los paneles
-		this.panelAgregar = new JPagregar();
+		this.panelAgregar = new JPAgregar();
 		this.cpanelAgregar = new JPAgregarControlador(panelAgregar);
+		
+		this.panelModificar = new JPModificar();
+		this.cpanelModificar = new JPModificarControlador(panelModificar);
+		
+		this.panelEliminar = new JPEliminar();
+		this.cpanelEliminar = new JPEliminarControlador(panelEliminar);
 		
 		//Eventos del menu principal
 		this.principal.getMntmAgregar().addActionListener(a->EventoClickMenu_Panel_AgregarPersona(a));
-		
 		
 	}
 	
