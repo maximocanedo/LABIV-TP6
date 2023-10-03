@@ -15,7 +15,6 @@ import main.Principal;
 public class JPMenuPrincipal extends JFrame{
 	
 	private static final long serialVersionUID = 1L;
-	private JPanel panelContenedor;
 	private JMenuBar menuBar;
 	private JMenu mnPersona;
 	private JMenuItem mntmAgregar;
@@ -48,11 +47,7 @@ public class JPMenuPrincipal extends JFrame{
 		mnPersona.add(mntmEliminar);
 		mntmListar.setIcon(new ImageIcon(Principal.class.getResource("/Images/Oxygen-Icons.org-Oxygen-Apps-preferences-contact-list.16.png")));
 		mnPersona.add(mntmListar);
-		panelContenedor.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(panelContenedor);
-		//panelContenedor.setLayout(sl_contentPane);
-		panelContenedor.setLayout(null);
-		panelContenedor.setVisible(true);
+		
 		
 	}
 
@@ -63,7 +58,6 @@ public class JPMenuPrincipal extends JFrame{
 		mntmModificar = new JMenuItem("Modificar");
 		mntmEliminar = new JMenuItem("Eliminar");
 		mntmListar = new JMenuItem("Listar");
-		panelContenedor = new JPanel();
 		//sl_contentPane = new SpringLayout();
 		
 	}
@@ -75,13 +69,7 @@ public class JPMenuPrincipal extends JFrame{
 		
 	}
 
-	public JPanel getContentPane() {
-		return panelContenedor;
-	}
-
-	public void setContentPane(JPanel contentPane) {
-		this.panelContenedor = contentPane;
-	}
+	
 
 	public void setMenuBar(JMenuBar menuBar) {
 		this.menuBar = menuBar;

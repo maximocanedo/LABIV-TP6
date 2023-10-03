@@ -30,6 +30,7 @@ public class JPagregar extends JPanel {
 		initLayout();
 		initComponents();
 		initUI();
+		show();
 	}
 	
 	public void show() {

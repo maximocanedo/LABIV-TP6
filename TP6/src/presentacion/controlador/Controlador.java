@@ -20,18 +20,21 @@ public class Controlador implements ActionListener {
 
 	private JPMenuPrincipal principal;
 	private JPagregar panelAgregar;
+	private JPAgregarControlador cpanelAgregar;
 	
 	private PersonaNegocio pNegocio;
 	
-	public Controlador(JPMenuPrincipal vista, PersonaNegocio pNeg)
-	{
+	
+	
+	public Controlador(JPMenuPrincipal vista, PersonaNegocio pNeg) {
 		//Guardamos las instancias que recibe el constructor
 		this.principal = vista;
 		this.pNegocio = pNeg;
 		
 		//Instanciamos los paneles
 		this.panelAgregar = new JPagregar();
-		this.panelAgregar.setBounds(0,0,principal.getContentPane().getWidth(),principal.getContentPane().getHeight());
+		this.cpanelAgregar = new JPAgregarControlador(panelAgregar);
+		
 		
 		
 		//Elazado de eventos
@@ -55,8 +58,9 @@ public class Controlador implements ActionListener {
 		{
 			principal.getContentPane().removeAll();
 			principal.getContentPane().add(panelAgregar);
-			principal.getContentPane().repaint();
+			panelAgregar.setVisible(true);
 			principal.getContentPane().revalidate();
+			principal.getContentPane().repaint();
 		}
 		//Agregar resto de eventos
 		
@@ -124,8 +128,7 @@ public class Controlador implements ActionListener {
 		}
 		
 		
-		public void inicializar()
-		{
+		public void inicializar() {
 			this.principal.setVisible(true);
 			
 			
