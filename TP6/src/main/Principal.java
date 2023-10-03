@@ -1,5 +1,7 @@
 package main;
 
+import java.awt.Font;
+
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -14,6 +16,8 @@ public class Principal {
 	public static void main(String[] args) {
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			UIManager.put("Label.font", new Font("Segoe UI", Font.PLAIN, 12));
+			UIManager.put("TextField.font", new Font("Segoe UI", Font.PLAIN, 12));
 	    } 
 	    catch (UnsupportedLookAndFeelException e) {
 	    	e.printStackTrace();

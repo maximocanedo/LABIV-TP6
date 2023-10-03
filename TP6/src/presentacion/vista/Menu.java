@@ -10,6 +10,7 @@ import javax.swing.SpringLayout;
 import javax.swing.border.EmptyBorder;
 
 import main.Principal;
+import java.awt.Dimension;
 
 
 public class Menu extends JFrame{
@@ -24,6 +25,7 @@ public class Menu extends JFrame{
 	private SpringLayout sl_contentPane;
 	
 	public Menu() {
+		setMinimumSize(new Dimension(450, 400));
 		initLayout();
 		initComponents();
 		initUI();
@@ -65,7 +67,7 @@ public class Menu extends JFrame{
 	private void initLayout() {
 		setTitle("TP6 Grupo 3");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 500, 400);
 		
 	}
 
