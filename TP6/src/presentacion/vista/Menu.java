@@ -10,12 +10,12 @@ import javax.swing.SpringLayout;
 import javax.swing.border.EmptyBorder;
 
 import main.Principal;
+import java.awt.Dimension;
 
 
-public class JPMenuPrincipal extends JFrame{
+public class Menu extends JFrame{
 	
 	private static final long serialVersionUID = 1L;
-	private JPanel panelContenedor;
 	private JMenuBar menuBar;
 	private JMenu mnPersona;
 	private JMenuItem mntmAgregar;
@@ -24,7 +24,8 @@ public class JPMenuPrincipal extends JFrame{
 	private JMenuItem mntmListar;
 	private SpringLayout sl_contentPane;
 	
-	public JPMenuPrincipal() {
+	public Menu() {
+		setMinimumSize(new Dimension(450, 400));
 		initLayout();
 		initComponents();
 		initUI();
@@ -48,11 +49,7 @@ public class JPMenuPrincipal extends JFrame{
 		mnPersona.add(mntmEliminar);
 		mntmListar.setIcon(new ImageIcon(Principal.class.getResource("/Images/Oxygen-Icons.org-Oxygen-Apps-preferences-contact-list.16.png")));
 		mnPersona.add(mntmListar);
-		panelContenedor.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(panelContenedor);
-		//panelContenedor.setLayout(sl_contentPane);
-		panelContenedor.setLayout(null);
-		panelContenedor.setVisible(true);
+		
 		
 	}
 
@@ -63,7 +60,6 @@ public class JPMenuPrincipal extends JFrame{
 		mntmModificar = new JMenuItem("Modificar");
 		mntmEliminar = new JMenuItem("Eliminar");
 		mntmListar = new JMenuItem("Listar");
-		panelContenedor = new JPanel();
 		//sl_contentPane = new SpringLayout();
 		
 	}
@@ -71,17 +67,11 @@ public class JPMenuPrincipal extends JFrame{
 	private void initLayout() {
 		setTitle("TP6 Grupo 3");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 500, 400);
 		
 	}
 
-	public JPanel getContentPane() {
-		return panelContenedor;
-	}
-
-	public void setContentPane(JPanel contentPane) {
-		this.panelContenedor = contentPane;
-	}
+	
 
 	public void setMenuBar(JMenuBar menuBar) {
 		this.menuBar = menuBar;

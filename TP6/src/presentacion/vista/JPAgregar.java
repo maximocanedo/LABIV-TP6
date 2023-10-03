@@ -5,6 +5,11 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import net.miginfocom.swing.MigLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Component;
+import javax.swing.Box;
+import java.awt.Dimension;
 /*
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -12,7 +17,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;*/
 
-public class JPagregar extends JPanel {
+public class JPAgregar extends JPanel {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -23,13 +28,22 @@ public class JPagregar extends JPanel {
 	private JTextField txtNombre;
 	private JTextField txtDNI;
 	private JButton btnAceptar;
+	private JLabel lblAgregarUnRegistro;
+	private Component verticalGlue;
+	private Component horizontalGlue;
+	private JLabel lblIngreseLosDatos;
+	private Component verticalStrut;
+	private Component verticalStrut_1;
+	private Component verticalStrut_2;
 
 	
-	public JPagregar() {
+	public JPAgregar() {
 		super();
+		setBackground(Color.WHITE);
 		initLayout();
 		initComponents();
 		initUI();
+		show();
 	}
 	
 	public void show() {
@@ -37,40 +51,28 @@ public class JPagregar extends JPanel {
 	}
 	
 	private void initLayout() {
-		setLayout(new MigLayout("", "[88.00][56.00][138.00,grow][41.00][65.00,grow]", "[63.00][][][22.00][][118.00]"));
+		setLayout(new MigLayout("", "[24px:24px:24px][60px:n:300px,grow][60px:n:300px,grow][grow][grow][24px:24px:24px]", "[16px:16px:16px][][][16px:n][][][][][][][][][][]"));
 		
 	}
 	
 	private void initComponents() {
-		lblNombre = new JLabel("Nombre:");
-		txtNombre = new JTextField();
-		lblApellido= new JLabel("Apellido:");
-		txtApellido = new JTextField();
-		lblDNI = new JLabel("D.N.I:");
-		txtDNI = new JTextField();
-		btnAceptar = new JButton("Aceptar");
 	}
 	private void initUI() {
-				
-		add(lblNombre, "cell 1 1,alignx right,aligny center");
 		
+		verticalGlue = Box.createVerticalGlue();
+		add(verticalGlue, "cell 1 0");
 		
-		add(txtNombre, "cell 2 1 2 1,growx");
-		txtNombre.setColumns(10);
+		horizontalGlue = Box.createHorizontalGlue();
+		add(horizontalGlue, "cell 0 1");
 		
+		lblAgregarUnRegistro = new JLabel("Agregar un registro");
+		lblAgregarUnRegistro.setForeground(new Color(0, 51, 153));
+		lblAgregarUnRegistro.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+		add(lblAgregarUnRegistro, "cell 1 1 5 1");
 		
-		add(lblApellido, "cell 1 2,alignx right,aligny center");
-		
-		
-		add(txtApellido, "cell 2 2 2 1,growx");
-		txtApellido.setColumns(10);
-		
-		
-		add(lblDNI, "cell 1 3,alignx right,aligny center");
-		
-		
-		add(txtDNI, "cell 2 3 2 1,growx");
-		txtDNI.setColumns(10);
+		lblIngreseLosDatos = new JLabel("Ingrese los datos de la persona en cuesti\u00F3n.");
+		lblIngreseLosDatos.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		add(lblIngreseLosDatos, "cell 1 2 5 1");
 		
 		
 		/*btnAceptar.addActionListener(new ActionListener() 
@@ -78,7 +80,45 @@ public class JPagregar extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});*/
-		add(btnAceptar, "cell 2 5,alignx left,aligny top");
+		lblNombre = new JLabel("Nombre:");
+		
+		add(lblNombre, "cell 1 4 2 1,alignx left,aligny bottom");
+		txtNombre = new JTextField();
+		
+		
+		add(txtNombre, "cell 1 5 2 1,growx,aligny top");
+		txtNombre.setColumns(10);
+		
+		verticalStrut = Box.createVerticalStrut(20);
+		verticalStrut.setPreferredSize(new Dimension(0, 8));
+		verticalStrut.setMinimumSize(new Dimension(0, 8));
+		add(verticalStrut, "cell 1 6");
+		lblApellido= new JLabel("Apellido:");
+		
+		
+		add(lblApellido, "cell 1 7 2 1,alignx left,aligny bottom");
+		txtApellido = new JTextField();
+		
+		
+		add(txtApellido, "cell 1 8 2 1,growx,aligny top");
+		txtApellido.setColumns(10);
+		
+		verticalStrut_1 = Box.createVerticalStrut(8);
+		add(verticalStrut_1, "cell 1 9");
+		lblDNI = new JLabel("D.N.I. N.º:");
+		
+		
+		add(lblDNI, "cell 1 10,alignx left,aligny bottom");
+		txtDNI = new JTextField();
+		
+		
+		add(txtDNI, "cell 1 11 2 1,growx,aligny top");
+		txtDNI.setColumns(10);
+		
+		verticalStrut_2 = Box.createVerticalStrut(8);
+		add(verticalStrut_2, "cell 1 12");
+		btnAceptar = new JButton("Aceptar");
+		add(btnAceptar, "cell 2 13,alignx right,aligny center");
 
 	}
 
