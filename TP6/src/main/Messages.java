@@ -18,7 +18,7 @@ public class Messages {
 	// Bundle access
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public static final String BUNDLE_NAME = "main.messages_es_AR"; //$NON-NLS-1$
+	public static final String BUNDLE_NAME = "main.messages"; //$NON-NLS-1$
 	public static final ResourceBundle RESOURCE_BUNDLE = loadBundle();
 	public static ResourceBundle loadBundle() {
 		return ResourceBundle.getBundle(BUNDLE_NAME);
