@@ -12,7 +12,7 @@ import javax.swing.border.EmptyBorder;
 import main.Principal;
 
 
-public class JPMenuPrincipal extends JFrame{
+public class Menu extends JFrame{
 	
 	private static final long serialVersionUID = 1L;
 	private JMenuBar menuBar;
@@ -23,7 +23,7 @@ public class JPMenuPrincipal extends JFrame{
 	private JMenuItem mntmListar;
 	private SpringLayout sl_contentPane;
 	
-	public JPMenuPrincipal() {
+	public Menu() {
 		initLayout();
 		initComponents();
 		initUI();
