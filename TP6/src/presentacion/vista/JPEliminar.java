@@ -9,7 +9,7 @@ import javax.swing.JList;
 import javax.swing.JButton;
 import java.awt.Font;
 
-public class JPeliminar extends JPanel {
+public class JPEliminar extends JPanel {
 
 	private JLabel lblEliminarUsuarios;
 	private JList<Persona> ltPersonas;
@@ -17,7 +17,7 @@ public class JPeliminar extends JPanel {
 	
 	private static final long serialVersionUID = 1L;
 
-	public JPeliminar() {
+	public JPEliminar() {
 		initLayout();
 		initComponents();
 		initUI();

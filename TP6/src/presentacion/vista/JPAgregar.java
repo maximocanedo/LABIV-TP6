@@ -12,7 +12,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;*/
 
-public class JPagregar extends JPanel {
+public class JPAgregar extends JPanel {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -25,11 +25,12 @@ public class JPagregar extends JPanel {
 	private JButton btnAceptar;
 
 	
-	public JPagregar() {
+	public JPAgregar() {
 		super();
 		initLayout();
 		initComponents();
 		initUI();
+		show();
 	}
 	
 	public void show() {

@@ -12,7 +12,7 @@ import entidad.Persona;
 
 import java.awt.Font;
 
-public class JPmodificar extends JPanel {
+public class JPModificar extends JPanel {
 	
 	private static final long serialVersionUID = 1L;
 	private JTextField txtNombre;
@@ -22,7 +22,7 @@ public class JPmodificar extends JPanel {
 	private JLabel lblSeleccioneLaPersona;
 	private JButton btnModificar;
 	
-	public JPmodificar() {
+	public JPModificar() {
 		
 		initLayout();
 		initComponents();
