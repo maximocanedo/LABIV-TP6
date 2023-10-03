@@ -8,51 +8,28 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import dao.*;
 import dao.PersonaDao;
 import entidad.Persona;
 
+@SuppressWarnings("serial")
 public class PersonaDaoImpl implements PersonaDao{
 
-	
 	public boolean existePersona(Persona persona) {
-
-		PreparedStatement statement= null;
-		Connection conexion = null;
-		ResultSet resultSet= null;  
-		boolean existe = false;
-		String consulta = "select * from personas where dni = (?)";
-		try 
-		{
-			conexion = Conexion.getConexion().getSQLConexion();
-			
-			statement = conexion.prepareStatement(consulta);
-			statement.setString(1, persona.getDni());
-			
-			resultSet = statement.executeQuery();
-	        existe = resultSet.next();
+		Connector cn = new Connector();
+		try {
+			TransactionResponse<Dict> res = cn.fetch("SELECT COUNT(Dni) as rows FROM Personas WHERE Dni = @dni", new Dict() {{
+				put("dni", persona.getDni());
+			}});
+			int rows = (int)(res.rowsReturned.get(0).get("rows"));
+			return (rows > 0);
+		} catch(SQLException e) {
+			e.printStackTrace();
 		}
-		catch (SQLException e) {
-	        e.printStackTrace();
-	        try {
-	            if (conexion != null) {
-	                conexion.rollback();
-	            }
-	        } catch (SQLException e1) {
-	            e1.printStackTrace();
-	        }
-	    } finally {/// Es importante cerrar la conexion, por mas que haya o no excepcion 
-	        try {
-	            conexion.close();
-	            statement.close();
-	            resultSet.close();
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        }
-	    }
-		return existe;
+		return false;
 	}
 	
-	
+	// Pendiente*
 	private boolean ejecutarSPInsertUpdate(Persona persona, String SP) {
 		
 		Connection conexion = null;
@@ -90,6 +67,7 @@ public class PersonaDaoImpl implements PersonaDao{
 	    
 	}
 	
+	// Pendiente
 	@Override
 	public boolean insert(Persona persona) {
 		String Insert= "call crearPersona(?,?,?)";

@@ -8,6 +8,7 @@ public class Dict extends HashMap<String, Object> {
 
 	private static final long serialVersionUID = 1L;
 	
+	
 	/**
 	 * Conocer si un elemento existe en la lista a partir de su key.
 	 * @param key La clave por la cual se busca el elemento en la lista.
