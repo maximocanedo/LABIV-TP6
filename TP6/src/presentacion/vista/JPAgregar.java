@@ -105,7 +105,7 @@ public class JPAgregar extends JPanel {
 		
 		verticalStrut_1 = Box.createVerticalStrut(8);
 		add(verticalStrut_1, "cell 1 9");
-		lblDNI = new JLabel("D.N.I:");
+		lblDNI = new JLabel("D.N.I. N.º:");
 		
 		
 		add(lblDNI, "cell 1 10,alignx left,aligny bottom");
