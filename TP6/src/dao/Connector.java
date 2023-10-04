@@ -128,9 +128,17 @@ public class Connector implements IConnector {
 	 */
 	@Override
 	public TransactionResponse<Dict> fetch(String query, Dict parameters) throws SQLException {
-        Object[] params = parameters.getParameters(query);
-		query = query.replaceAll("@\\w+", "?");
-	    return fetch(query, params);
+		try {
+			Object[] params = parameters.getParameters(query);
+			query = query.replaceAll("@\\w+", "?");
+			return fetch(query, params);
+		} catch (ParameterNotExistsException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return new TransactionResponse<Dict>() {{
+				error = e;
+			}};
+		}
 	}
 
 	/**
@@ -200,9 +208,17 @@ public class Connector implements IConnector {
 	 */
 	@Override
 	public TransactionResponse<?> transact(String query, Dict parameters) throws SQLException {
-		Object[] params = parameters.getParameters(query);
-		query = query.replaceAll("@\\w+", "?");
-		return transact(query, params);
+		try {
+			Object[] params = parameters.getParameters(query);
+			query = query.replaceAll("@\\w+", "?");
+			return transact(query, params);
+		} catch (ParameterNotExistsException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return new TransactionResponse<Dict>() {{
+				error = e;
+			}};
+		}
 	}
 	
 	/**

@@ -8,7 +8,6 @@ public class Dict extends HashMap<String, Object> {
 
 	private static final long serialVersionUID = 1L;
 	
-	
 	/**
 	 * Conocer si un elemento existe en la lista a partir de su key.
 	 * @param key La clave por la cual se busca el elemento en la lista.
@@ -41,7 +40,7 @@ public class Dict extends HashMap<String, Object> {
 	 * @param query La consulta SQL a ser analizada.
 	 * @return Array con los valores correspondientes a los parámetros, en el orden en el que aparecen en la consulta.
 	 */
-	public Object[] getParameters(String query) {
+	public Object[] getParameters(String query) throws ParameterNotExistsException {
         Pattern pattern = Pattern.compile("@(\\w+)");
         Matcher matcher = pattern.matcher(query);
         int coincidences = countKeys(query);
@@ -55,7 +54,7 @@ public class Dict extends HashMap<String, Object> {
             	params[i] = val;
             	
             } else {
-            	// Lanzar una Exception
+            	throw new ParameterNotExistsException(paramName);
             }
             i++;
         }
