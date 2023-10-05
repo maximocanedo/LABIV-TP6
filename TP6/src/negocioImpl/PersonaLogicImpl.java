@@ -4,8 +4,9 @@ import java.util.List;
 import java.sql.SQLException;
 import java.util.Map;
 
+import dao.Dict;
+import dao.TransactionResponse;
 import daoImpl.PersonaDaoImpl;
-import daoImpl.TransactionResponse;
 import entidad.Persona;
 import main.Messages;
 import negocio.IRecordNegocio;
@@ -23,11 +24,23 @@ public class PersonaLogicImpl implements IRecordNegocio<Persona, String> {
 		boolean apellidoOK = (apellido.trim().length() <= 45 && apellido.trim().length() > 1);
 		boolean DNIOK = DNI.matches("[0-9]+");
 		boolean DNILOK = (DNI.trim().length() > 1); 
-		boolean alright = nombreOK && apellidoOK && DNILOK && DNIOK;
+		boolean cdp = false;
+		boolean existsDNI = false;
+		try {
+			existsDNI = PDI.exists(DNI);
+			cdp = true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			cdp = false;
+		}
+		boolean alright = nombreOK && apellidoOK && DNILOK && DNIOK && cdp && !existsDNI;
 		result.message = (!nombreOK ? Messages.getString("NameMustContainChar") : 
 			(!apellidoOK ? Messages.getString("SurnameMustContainChar") : 
 				(!DNILOK ? Messages.getString("DNIEmptyError") : 
-					(!DNIOK ? Messages.getString("DNINonNumbersError") : ""))));
+					(!DNIOK ? Messages.getString("DNINonNumbersError") : 
+						(!cdp ? Messages.getString("CDPFailed") : 
+							(existsDNI ? Messages.getString("DNIAlreadyExists") : ""))))));
 		result.status = alright;
 		if(alright) {
 			result.objectReturned = new Persona() {{
@@ -100,8 +113,8 @@ public class PersonaLogicImpl implements IRecordNegocio<Persona, String> {
 	public LogicResponse<Persona> getAll() {
 		LogicResponse<Persona> lr = new LogicResponse<Persona>();
 		try {
-			List<Persona> list = PDI.getAll();
-			lr.listReturned = list;
+			TransactionResponse<Persona> list = PDI.getAll();
+			lr.listReturned = list.rowsReturned;
 			lr.status = true;
 		} catch(SQLException e) {
 			lr.exception = e;
@@ -113,8 +126,8 @@ public class PersonaLogicImpl implements IRecordNegocio<Persona, String> {
 	public LogicResponse<Persona> select(String query) {
 		LogicResponse<Persona> lr = new LogicResponse<Persona>();
 		try {
-			List<Persona> list = PDI.select(query);
-			lr.listReturned = list;
+			TransactionResponse<Persona> list = PDI.select(query);
+			lr.listReturned = list.rowsReturned;
 			lr.status = true;
 		} catch(SQLException e) {
 			lr.exception = e;
@@ -123,11 +136,11 @@ public class PersonaLogicImpl implements IRecordNegocio<Persona, String> {
 	}
 
 	@Override
-	public LogicResponse<Persona> select(String query, Map<String, Object> params) {
+	public LogicResponse<Persona> select(String query, Dict params) {
 		LogicResponse<Persona> lr = new LogicResponse<Persona>();
 		try {
-			List<Persona> list = PDI.select(query, params);
-			lr.listReturned = list;
+			TransactionResponse<Persona> list = PDI.select(query, params);
+			lr.listReturned = list.rowsReturned;
 			lr.status = true;
 		} catch(SQLException e) {
 			lr.exception = e;
@@ -139,8 +152,8 @@ public class PersonaLogicImpl implements IRecordNegocio<Persona, String> {
 	public LogicResponse<Persona> select(String query, Object[] params) {
 		LogicResponse<Persona> lr = new LogicResponse<Persona>();
 		try {
-			List<Persona> list = PDI.select(query, params);
-			lr.listReturned = list;
+			TransactionResponse<Persona> list = PDI.select(query, params);
+			lr.listReturned = list.rowsReturned;
 			lr.status = true;
 		} catch(SQLException e) {
 			lr.exception = e;
@@ -152,8 +165,8 @@ public class PersonaLogicImpl implements IRecordNegocio<Persona, String> {
 	public LogicResponse<Persona> getById(String id) {
 		LogicResponse<Persona> lr = new LogicResponse<Persona>();
 		try {
-			Persona p = PDI.getById(id);
-			lr.objectReturned = p;
+			TransactionResponse<Persona> p = PDI.getById(id);
+			lr.objectReturned = p.objectReturned;
 			lr.status = true;
 		} catch(SQLException e) {
 			lr.exception = e;

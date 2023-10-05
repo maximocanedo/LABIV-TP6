@@ -6,7 +6,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import dao.Connector;
+import dao.Dict;
 import dao.IRecord;
+import dao.TransactionResponse;
 import entidad.Persona;
 
 @SuppressWarnings("serial") // Para que no moleste con advertencias de seriales.
@@ -16,9 +19,9 @@ public class PersonaDaoImpl implements IRecord<Persona, String> {
 	public TransactionResponse<?> insert(Persona data) throws SQLException {
 		TransactionResponse<?> t = TransactionResponse.create();
 		try {
-			t = new Conn().executeTransaction(
+			t = new Connector().transact(
 					"INSERT INTO Personas(Dni, Nombre, Apellido) SELECT @dni, @nombre, @apellido", 
-					new HashMap<String, Object>() {{
+					new Dict() {{
 				        put("dni", data.getDNI());
 				        put("nombre", data.getNombre());
 				        put("apellido", data.getApellido());
@@ -35,9 +38,9 @@ public class PersonaDaoImpl implements IRecord<Persona, String> {
 	public TransactionResponse<?> delete(Persona data) throws SQLException {
 		TransactionResponse<?> t = TransactionResponse.create();
 		try {
-			t = new Conn().executeTransaction(
+			t = new Connector().transact(
 					"DELETE FROM Personas WHERE Dni = @dni", 
-					new HashMap<String, Object>() {{
+					new Dict() {{
 				        put("dni", data.getDNI());
 				    }});
 		} catch(SQLException e) {
@@ -52,7 +55,7 @@ public class PersonaDaoImpl implements IRecord<Persona, String> {
 	public TransactionResponse<?> modify(Persona data, String dni) throws SQLException {
 		TransactionResponse<?> t = TransactionResponse.create();
 		try {
-			t = new Conn().executeTransaction(
+			t = new Connector().transact(
 					"UPDATE Personas SET Nombre = ?, Apellido = ?, Dni = ? WHERE Dni = ?", 
 					new Object[] {
 						data.getNombre(),  
@@ -69,12 +72,13 @@ public class PersonaDaoImpl implements IRecord<Persona, String> {
 	}
 
 	@Override
-	public List<Persona> getAll() throws SQLException {
+	public TransactionResponse<Persona> getAll() throws SQLException {
+		TransactionResponse<Persona> pe = new TransactionResponse<Persona>();
 		List<Persona> list = new ArrayList<Persona>();
 		try {
-			Conn c = new Conn(Conn.DB.bdPersonas);
-			List<Map<String, Object>> results = c.fetch("SELECT * FROM Personas;");
-			for(Map<String, Object> row: results) {
+			Connector c = new Connector(Connector.DB.bdPersonas);
+			TransactionResponse<Dict> results = c.fetch("SELECT * FROM Personas;");
+			for(Dict row: results.rowsReturned) {
 				Persona p = new Persona();
 				p.setDNI((String)row.get("Dni"));
 				p.setNombre((String)row.get("Nombre"));
@@ -85,17 +89,19 @@ public class PersonaDaoImpl implements IRecord<Persona, String> {
 			e.printStackTrace();
 			throw e;
 		}
-		return list;
+		pe.rowsReturned = list;
+		return pe;
 	}
 
 	
 	
 	@Override
-	public List<Persona> select(String query, Map<String, Object> params) throws SQLException {
+	public TransactionResponse<Persona> select(String query, Dict params) throws SQLException {
+		TransactionResponse<Persona> r = new TransactionResponse<Persona>();
 		List<Persona> list = new ArrayList<Persona>();
 		try {
-			List<Map<String, Object>> results = new Conn().fetch(query, params);
-			for(Map<String, Object> row: results) {
+			TransactionResponse<Dict> results = new Connector().fetch(query, params);
+			for(Dict row: results.rowsReturned) {
 				Persona p = new Persona();
 				p.setDNI((String)row.get("Dni"));
 				p.setNombre((String)row.get("Nombre"));
@@ -106,14 +112,16 @@ public class PersonaDaoImpl implements IRecord<Persona, String> {
 			e.printStackTrace();
 			throw e;
 		}
-		return list;
+		r.rowsReturned = list;
+		return r;
 	}
 	@Override
-	public List<Persona> select(String query, Object[] params) throws SQLException {
+	public TransactionResponse<Persona> select(String query, Object[] params) throws SQLException {
+		TransactionResponse<Persona> r = new TransactionResponse<Persona>();
 		List<Persona> list = new ArrayList<Persona>();
 		try {
-			List<Map<String, Object>> results = new Conn().fetch(query, params);
-			for(Map<String, Object> row: results) {
+			TransactionResponse<Dict> results = new Connector().fetch(query, params);
+			for(Dict row: results.rowsReturned) {
 				Persona p = new Persona();
 				p.setDNI((String)row.get("Dni"));
 				p.setNombre((String)row.get("Nombre"));
@@ -124,10 +132,11 @@ public class PersonaDaoImpl implements IRecord<Persona, String> {
 			e.printStackTrace();
 			throw e;
 		}
-		return list;
+		r.rowsReturned = list;
+		return r;
 	}
-	public List<Persona> select(String query) throws SQLException {
-		List<Persona> list = null;
+	public TransactionResponse<Persona> select(String query) throws SQLException {
+		TransactionResponse<Persona> list = null;
 		try {
 			list = select(query, new Object[] {});
 		} catch(SQLException e) {
@@ -136,35 +145,37 @@ public class PersonaDaoImpl implements IRecord<Persona, String> {
 		return list;
 	}
 	@Override
-	public Persona getById(String id) throws SQLException {
+	public TransactionResponse<Persona> getById(String id) throws SQLException {
 		Persona p = null;
 		try {
-			List<Map<String, Object>> results = new Conn().fetch(
+			TransactionResponse<Dict> results = new Connector().fetch(
 					"SELECT * FROM Personas WHERE Dni = @dni", 
-					new HashMap<String, Object>() {{
+					new Dict() {{
 						put("dni", id);
 					}});
-			if(results != null && results.size() > 0) {
-				Map<String, Object> result = results.get(0);
+			if(results != null && results.rowsReturned.size() > 0) {
+				Map<String, Object> result = results.rowsReturned.get(0);
 				p = convert(result);
 			};
 		} catch(SQLException e) {
 			e.printStackTrace();
 			throw e;
 		}
-		return p;
+		TransactionResponse<Persona> pp = new TransactionResponse<Persona>();
+		pp.objectReturned = p;
+		return pp;
 	}
 
 	@Override
 	public boolean exists(String id) throws SQLException {
 		boolean r = false;
 		try {
-			List<Map<String, Object>> results = new Conn().fetch(
+			TransactionResponse<Dict> results = new Connector().fetch(
 					"SELECT * FROM Personas WHERE Dni = @dni", 
-					new HashMap<String, Object>() {{
+					new Dict() {{
 						put("dni", id);
 					}});
-			r = (results != null && results.size() > 0);
+			r = (results != null && results.rowsReturned.size() > 0);
 		} catch(SQLException e) {
 			e.printStackTrace();
 			throw e;
