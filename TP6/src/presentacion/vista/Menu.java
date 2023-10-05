@@ -23,7 +23,7 @@ public class Menu extends JFrame {
 	
 	@SuppressWarnings("serial")
 	public Menu() {
-		setTitle("Trabajo Pr\u00E1ctico N.\u00BA 6 (R.I. M\u00E1ximo Canedo)");
+		setTitle("Trabajo Pr\u00E1ctico N.\u00BA 6 (Grupo N.º 3)");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Menu.class.getResource("/Images/UTN.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
