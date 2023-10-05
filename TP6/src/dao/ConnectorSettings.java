@@ -22,6 +22,23 @@ public class ConnectorSettings {
 		characterEncoding = "UTF-8";
 		useSSL = false;
 	}};
+	
+	/**
+	 * Construye el URI para conectar a la base de datos.
+	 * @return El URI para conectar a la base de datos.
+	 */
+	public String buildURI(String db) {
+		String e = this.host 
+				+ db 
+				+ "?useUnicode=" 
+				+ (this.useUnicode ? "yes" : "no") 
+				+ "&characterEncoding=" 
+				+ this.characterEncoding 
+				+ "&useSSL=" 
+				+ (this.useSSL ? "true" : "false");
+		return e;
+	}
+	
 	public ConnectorSettings() {
 		
 	}

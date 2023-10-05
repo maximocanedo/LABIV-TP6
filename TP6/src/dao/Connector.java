@@ -40,20 +40,7 @@ public class Connector implements IConnector {
 		this(ConnectorSettings.DEFAULT, DB.bdPersonas);
 	}
 
-	/**
-	 * Construye el URI para conectar a la base de datos.
-	 * @return El URI para conectar a la base de datos.
-	 */
-	private String buildURI() {
-		return this.settings.host 
-				+ this.database 
-				+ "?useUnicode=" 
-				+ (this.settings.useUnicode ? "yes" : "no") 
-				+ "&characterEncoding=" 
-				+ this.settings.characterEncoding 
-				+ "&useSSL=" 
-				+ (this.settings.useSSL ? "true" : "false");
-	}
+
 	
 	/**
 	 * Abre una nueva conexión al servidor de base de datos.
@@ -62,7 +49,7 @@ public class Connector implements IConnector {
 	public Connection openConnection() throws SQLException {
 		Connection connection = null;
         try {
-            connection = DriverManager.getConnection(this.buildURI(), this.settings.user.username, this.settings.user.password);
+            connection = DriverManager.getConnection(this.settings.buildURI(this.database), this.settings.user.username, this.settings.user.password);
         } catch (SQLException e) {
             throw e;
         }

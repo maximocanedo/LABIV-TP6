@@ -21,7 +21,7 @@ public class PersonaDaoImpl implements PersonaDao{
 			TransactionResponse<Dict> res = cn.fetch("SELECT COUNT(Dni) as rows FROM Personas WHERE Dni = @dni", new Dict() {{
 				put("dni", persona.getDni());
 			}});
-			int rows = (int)(res.rowsReturned.get(0).get("rows"));
+			long rows = (long)(res.rowsReturned.get(0).get("rows"));
 			return (rows > 0);
 		} catch(SQLException e) {
 			e.printStackTrace();
