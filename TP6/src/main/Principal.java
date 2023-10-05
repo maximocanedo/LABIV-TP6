@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import dao.TransactionResponse;
 import daoImpl.PersonaDaoImpl;
-import daoImpl.TransactionResponse;
 import entidad.Persona;
 import negocio.LogicResponse;
 import negocioImpl.PersonaLogicImpl;

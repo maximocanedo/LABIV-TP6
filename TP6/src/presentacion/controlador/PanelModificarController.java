@@ -52,7 +52,7 @@ public class PanelModificarController implements ActionListener {
 		panel.getBtnModificar().setEnabled(b);
 		panel.getTxtMNombre().setEnabled(b);
 		panel.getTxtMApellido().setEnabled(b);
-		panel.getTxtMDNI().setEnabled(b);
+		panel.getTxtMDNI().setEnabled(false);
 		if(!b) {
 			panel.getTxtMNombre().setText("");
 			panel.getTxtMApellido().setText("");
