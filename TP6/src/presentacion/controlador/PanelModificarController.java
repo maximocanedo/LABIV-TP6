@@ -78,7 +78,7 @@ public class PanelModificarController implements ActionListener {
 		if(selectedDNI == "a") {
 			return;
 		}
-		LogicResponse<Persona> res = PersonaLogicImpl.create(nombre, apellido, DNI);
+		LogicResponse<Persona> res = PersonaLogicImpl.create(nombre, apellido, DNI, false);
 		Persona p = res.objectReturned;
 		if(res.status) {
 			try {

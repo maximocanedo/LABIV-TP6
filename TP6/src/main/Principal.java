@@ -15,6 +15,12 @@ import presentacion.controlador.Controller;
 
 public class Principal {
 
+	/* ¡Atención!
+	 * Este programa cuenta con soporte para español, inglés, francés y alemán.
+	 * Pero por las dudas se estableció el idioma por defecto al español.
+	 * Para probar el funcionamiento en el idioma del PC, cambiare
+	 */
+	
 	public static void main(String[] args) {
 
 		Controller c = new Controller();

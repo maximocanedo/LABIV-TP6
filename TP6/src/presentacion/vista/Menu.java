@@ -48,21 +48,14 @@ public class Menu extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Menu frame = new Menu();
-					frame.setVisible(true);
+					setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
 	}
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		Menu x = new Menu();
-		x.launch();
-	}
+	
 	
 	// Getters y Setters de los controles
 	public void setMenuBar(JMenuBar menuBar) {

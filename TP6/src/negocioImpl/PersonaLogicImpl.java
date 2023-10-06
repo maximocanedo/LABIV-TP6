@@ -17,7 +17,7 @@ public class PersonaLogicImpl implements IRecordNegocio<Persona, String> {
 	public static PersonaDaoImpl PDI = new PersonaDaoImpl();
 	
 	// TODO: Validar que el DNI no exista!
-	public static LogicResponse<Persona> create(String nombre, String apellido, String DNI) {
+	public static LogicResponse<Persona> create(String nombre, String apellido, String DNI, boolean validateDNI) {
 		LogicResponse<Persona> result = new LogicResponse<Persona>();
 		// Validar nombre:
 		boolean nombreOK = (nombre.trim().length() <= 45 && nombre.trim().length() > 1);
@@ -26,14 +26,19 @@ public class PersonaLogicImpl implements IRecordNegocio<Persona, String> {
 		boolean DNILOK = (DNI.trim().length() > 1); 
 		boolean cdp = false;
 		boolean existsDNI = false;
-		try {
-			existsDNI = PDI.exists(DNI);
+		if(validateDNI) {
+			try {
+				existsDNI = PDI.exists(DNI);
+				cdp = true;
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				cdp = false;
+			}
+		} else {
 			cdp = true;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			cdp = false;
 		}
+		
 		boolean alright = nombreOK && apellidoOK && DNILOK && DNIOK && cdp && !existsDNI;
 		result.message = (!nombreOK ? Messages.getString("NameMustContainChar") : 
 			(!apellidoOK ? Messages.getString("SurnameMustContainChar") : 
